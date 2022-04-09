@@ -1,0 +1,7 @@
+{
+  "name": "gamer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
