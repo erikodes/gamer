@@ -1,0 +1,25 @@
+<ion-content scrollY="false">
+    <div class="background"></div>
+    <div class="logo">
+        <img src="assets/images/logo.png" class="logo ion-margin-bottom" alt="">
+    </div>
+    <div class="menu-bottom ion-padding">
+        <div class="title">
+            <h1>Pregunta al mundo<br>lo que quieras</h1>
+        </div>
+        <ion-button expand="block" class="ion-margin-bottom" color="primary" routerLink="/auth/register/step1">
+            Regístrate gratis
+        </ion-button>
+        <ion-button expand="block" class="ion-margin-bottom" color="light" routerLink="/auth/register/step1">
+            <ion-icon src="./../../../assets/icon/facebook.svg" color="dark" slot="start" class="btn-icon"></ion-icon>
+            Iniciar sesión con Facebook
+        </ion-button>
+        <ion-button expand="block" class="ion-margin-bottom" color="light">
+            <ion-icon src="./../../../assets/icon/google.svg" color="dark" slot="start" class="btn-icon"></ion-icon>
+            Continuar con Google
+        </ion-button>
+        <ion-button expand="block" fill="clear" color="light" class="ion-margin-bottom" routerLink="/auth/login">
+            ¿Ya tienes cuenta? Haz login aqui
+        </ion-button>
+    </div>
+</ion-content>

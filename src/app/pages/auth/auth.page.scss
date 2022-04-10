@@ -1,0 +1,77 @@
+ion-content {
+  --background: var(--ion-color-dark);
+  z-index: 0;
+}
+
+.background {
+  position: absolute;
+  background-image: url(../../../assets/images/auth.png);
+  background-size: cover;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+ion-button {
+  ion-icon {
+    font-size: 25px;
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  margin: 10px;
+  img {
+    width: 30px;
+  }
+}
+
+.btn-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+}
+
+.menu-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  .title {
+    margin: 0 -16px;
+    margin-bottom: 32px;
+    z-index: 1;
+    position: relative;
+    color: white;
+    h1 {
+      font-weight: 900;
+      font-size: 30px;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    p {
+      color: white;
+      opacity: 0.8;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      font-size: 12px;
+      margin: 0 40px;
+    }
+  }
+}
+
+@keyframes floatingimage {
+  0% {
+    transform: translateY(0rem) translateX(0rem);
+  }
+  50% {
+    transform: translateY(1rem) translateX(-0.5rem);
+  }
+  100% {
+    transform: translateY(0rem) translateX(0rem);
+  }
+}

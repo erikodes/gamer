@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+    <div class="title">
+        <h2>Ingresa tu email</h2>
+        <p>Indica el email de la cuenta quieres usar.</p>
+    </div>
+
+    <ion-list class="form ion-margin-top" mode="md">
+        <ion-item>
+            <ion-label color="medium" position="floating">Nombre de usuario</ion-label>
+            <ion-input [(ngModel)]="username" (keyup.enter)="passwordInput.setFocus()" #usernameId></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="medium" position="floating">Contraseña</ion-label>
+            <ion-input [type]="passwordType" [(ngModel)]="password" (keyup.enter)="login()" #passwordId></ion-input>
+            <ion-button slot="end" (click)="showPassword()" fill="clear" mode="ios" color="dark">
+                <ion-icon name="eye" color="medium" [name]="passwordIcon" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
+    <ion-text class="d-flex ion-justify-content-end w--100 font-bold" color="light" routerLink="/auth/password">
+        ¿Olvidaste tu contraseña?
+    </ion-text>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="ion-text-center">
+        <p class="muted">Si continuas, aceptas nuestra
+            <ion-text color="primary">
+                Politica de privacidad
+            </ion-text> y nuestros
+            <ion-text color="primary">
+                Terminos de uso.
+            </ion-text>
+        </p>
+        <ion-button expand="block" (click)="login()">
+            Siguiente
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

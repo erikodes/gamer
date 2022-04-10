@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button color="dark"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal ion-text-center" scrollY="false">
+    <div class="container">
+        <img src="assets/images/email-notification.png" class="ion-padding-bottom" alt="" width="50%">
+
+        <div class="title ion-padding-top">
+            <h2>Ve a tu correo electrónico</h2>
+            <p>Te hemos enviado una recuperación<br>de contraseña a tu correo electrónico.</p>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="ion-text-center">
+        <ion-button class="ion-margin-bottom" expand="block" (click)="openEmail()">
+            Abrir correo electrónico
+        </ion-button>
+        <p>
+            ¿No recibiste ningun correo electrónico?<br>
+            Revisa tu spam o
+            <ion-text color="primary" (click)="sendInstructions(); setCountdown()" *ngIf="counter === 60">
+                reenvia el correo.
+            </ion-text>
+            <ion-text color="primary" *ngIf="counter !== 60">espera {{counter}}s.</ion-text>
+        </p>
+    </ion-toolbar>
+</ion-footer>

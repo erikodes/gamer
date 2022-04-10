@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+    <div class="title">
+        <h2>¿Como te gustaria que te llamaramos?</h2>
+        <p>Indica el nombre de usuario quieres usar.</p>
+    </div>
+
+    <ion-list class="form ion-margin-top" mode="md">
+        <ion-item>
+            <ion-label color="medium" position="floating">Nombre de usuario</ion-label>
+            <ion-input [(ngModel)]="username" (keyup.enter)="checkUsername()" #usernameId></ion-input>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="ion-text-center">
+        <ion-button expand="block" (click)="checkUsername()" [disabled]="username ? false : true">
+            Siguiente
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+    <div class="title">
+        <h2>¿Cuál es tu email?</h2>
+        <p>Indica el email de la cuenta quieres usar.</p>
+    </div>
+
+    <ion-list class="form ion-margin-top" mode="md">
+        <ion-item>
+            <ion-label color="medium" position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" [(ngModel)]="email" (keyup.enter)="checkEmail()" #emailId></ion-input>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="ion-text-center">
+        <p class="muted">Si continuas, aceptas nuestra
+            <ion-text color="primary">
+                Politica de privacidad
+            </ion-text> y nuestros
+            <ion-text color="primary">
+                Terminos de uso.
+            </ion-text>
+        </p>
+        <ion-button expand="block" (click)="checkEmail()" [disabled]="!validateEmail(email)">
+            Siguiente
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
