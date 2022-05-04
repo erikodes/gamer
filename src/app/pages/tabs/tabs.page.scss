@@ -6,17 +6,24 @@ ion-label {
 
 ion-icon {
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 15px;
   color: var(--ion-color-medium);
 }
 
 .btn-add {
-  background: #0166ff;
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0), 0 0 20px 0 rgba(113, 21, 241, 0.576);
+  background: linear-gradient(200deg, #9e61ff, rgba(142, 97, 255, 0) 34%),
+    radial-gradient(
+      circle farthest-corner at 0% -100%,
+      #619bff 20%,
+      rgba(205, 219, 248, 0) 51%
+    ),
+    linear-gradient(180deg, #6c52ee, #6c52ee);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border-radius: 8px;
+  border-radius: 50px;
   ion-icon {
     color: var(--ion-color-light);
     margin-bottom: 0;

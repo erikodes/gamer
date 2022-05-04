@@ -1,17 +1,60 @@
-<ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>
-            Tab 2
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-        <ion-toolbar>
-            <ion-title size="large">Tab 2</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
-    <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
+<ion-content class="ion-padding">
+    <div class="d-flex ion-padding-bottom">
+        <ion-searchbar placeholder="Buscar usuarios, colecciones..."></ion-searchbar>
+    </div>
+    <div class="top-users">
+        <div class="title d-flex">
+            <h3>Mejores gamers</h3>
+            <ion-button fill="clear" color="dark" class="ion-no-padding">
+                <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </div>
+        <ion-slides class="users-slider" [options]="{slidesPerView: 'auto', spaceBetween: 28}">
+            <ion-slide *ngFor="let user of users; let i = index">
+                <div class="user">
+                    <ion-avatar>
+                        <img
+                            src="{{user.profilePicture ? user.profilePicture : 'https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png'}}" />
+                        <ion-badge class="color--{{i + 1}}">{{i + 1}}</ion-badge>
+                    </ion-avatar>
+                    <h6 class="wrap wrap--1">{{user.username}}</h6>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="games">
+        <div class="title d-flex">
+            <h3>Juegos recomendados</h3>
+            <ion-button fill="clear" color="dark" class="ion-no-padding">
+                <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </div>
+        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 15}">
+            <ion-slide *ngFor="let game of games; let i = index">
+                <div class="category">
+                    <img src="{{game.art}}" alt="">
+                    <p class="wrap wrap--1">{{game.name}}</p>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="categories">
+        <div class="title d-flex">
+            <h3>Categorías</h3>
+            <ion-button fill="clear" color="dark" class="ion-no-padding">
+                <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </div>
+        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 15}">
+            <ion-slide *ngFor="let category of categories; let i = index">
+                <div class="category">
+                    <img src="{{category.art}}" alt="">
+                    <ion-button color="medium" fill="clear">
+                        <ion-icon name="ellipsis-vertical-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <p class="wrap wrap--1">{{category.name}}</p>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
 </ion-content>

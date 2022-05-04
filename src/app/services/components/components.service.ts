@@ -33,7 +33,7 @@ export class ComponentsService {
             const toast = await this.toastCtrl.create({
                 message,
                 cssClass: type,
-                position: 'top',
+                position: 'bottom',
                 duration: 2000,
                 buttons: [
                     {

@@ -47,7 +47,7 @@ export class Step3Page implements OnInit {
             // this.components.dismissLoader();
         } else {
             this.auth.registerUser(this.username, this.email, this.password).then(data => {
-                this.router.navigate(['/tabs/tab1']);
+                this.router.navigate(['']);
             }, err => {
                 if (err === 'userx02') {
                     this.components.showToast('El correo electrónico que ingresaste ya esta en uso.', 'error');

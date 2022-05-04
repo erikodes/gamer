@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-buttons slot="start">
+                <ion-back-button></ion-back-button>
+            </ion-buttons>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-slides (ionSlideWillChange)="slideChange(slides)" [options]="slideOptions" #slides>
+        <ion-slide *ngFor="let clip of clips; let i = index">
+            <div class="clip" (dblclick)="like(i, clip)">
+                <video [src]="clip.video.url" height="100%" width="100%" muted loop id="video-{{i}}" [autoplay]="false"
+                    (click)="changeStatusVideo(i)"></video>
+                <div class="game">
+                    <ion-thumbnail>
+                        <img src="{{clip.game.art}}" />
+                    </ion-thumbnail>
+                    <ion-label>
+                        <h3>{{clip.game.name}}</h3>
+                        <p>Presiona para más</p>
+                    </ion-label>
+                </div>
+
+                <div class="bottom-content">
+                    <div class="container">
+                        <div class="user">
+                            <ion-avatar slot="start" routerLink="/profile/{{clip.userKey}}">
+                                <img src="{{clip.user?.profilePicture}}" />
+                            </ion-avatar>
+                            <ion-label>
+                                <h2>@{{clip.user?.username}}</h2>
+                                <p>{{clip.creationDate}}</p>
+                            </ion-label>
+                            <ion-button fill="solid" shape="round" color="light" slot="end">
+                                Seguir
+                            </ion-button>
+                        </div>
+                        <p class="clip-title">{{clip.title}}</p>
+                        <div class="clip-categories">
+                            <ion-badge>
+                                <ion-icon name="copy-outline"></ion-icon>
+                                WTF Moments
+                            </ion-badge>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <div class="button" (click)="openMenu()">
+                            <ion-icon name="ellipsis-horizontal"></ion-icon>
+                        </div>
+                        <div class="button" (click)="like(i, clip)">
+                            <ng-lottie class="confeti" [options]="lottieConfig" *ngIf="clip.like != undefined"
+                                (animationCreated)="handleAnimation(clip, i, $event)">
+                            </ng-lottie>
+                            <p>{{clip.likes}}</p>
+                        </div>
+                        <div class="button">
+                            <ion-icon class="icon-message"></ion-icon>
+                            <p>50</p>
+                        </div>
+                        <div class="button">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-icon name="pause-outline" class="pause-indicator" *ngIf="!isPlaying"></ion-icon>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

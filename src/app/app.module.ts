@@ -14,12 +14,15 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from './../environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { AuthService } from './services/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
     imports: [
         BrowserModule,
+        CommonModule,
         IonicModule.forRoot(
             {
                 mode: 'ios',
@@ -33,7 +36,8 @@ import { AuthService } from './services/auth/auth.service';
         AngularFireDatabaseModule,
         AngularFirestoreModule,
         IonicStorageModule.forRoot(),
-        AngularFireModule.initializeApp(firebaseConfig)
+        AngularFireModule.initializeApp(firebaseConfig),
+        ComponentsModule
     ],
     providers: [
         {

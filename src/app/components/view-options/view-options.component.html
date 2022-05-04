@@ -1,0 +1,33 @@
+<ion-header class="light-header">
+    <ion-toolbar>
+        <ion-title>Quién puede ver</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="dark" (click)="modalController.dismiss()">
+                <ion-icon slot="icon-only" color="dark" name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-radio-group mode="md" allow-empty-selection [(ngModel)]="option">
+            <ion-item class="ion-margin-bottom" (click)="selectOption('all')">
+                <ion-label color="dark">Todos</ion-label>
+                <ion-radio slot="end" value="all"></ion-radio>
+            </ion-item>
+
+            <ion-item class="ion-margin-bottom" (click)="selectOption('friends')">
+                <ion-text>
+                    <ion-label color="dark">Amigos</ion-label>
+                    <p class="muted">seguidores a los que tu tambien sigues</p>
+                </ion-text>
+                <ion-radio slot="end" value="friends"></ion-radio>
+            </ion-item>
+
+            <ion-item class="ion-margin-bottom" (click)="selectOption('me')">
+                <ion-label color="dark">Solo yo</ion-label>
+                <ion-radio slot="end" value="me"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+    </ion-list>
+</ion-content>

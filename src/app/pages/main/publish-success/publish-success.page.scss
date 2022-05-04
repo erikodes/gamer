@@ -1,0 +1,47 @@
+.confeti {
+  position: absolute;
+  transform: translateX(-20%);
+  height: 100vh;
+  width: 100vh;
+}
+
+.success-lottie {
+  position: relative;
+  width: 70%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+
+  h1 {
+    font-weight: 600;
+    margin-top: 32px;
+  }
+
+  h6 {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 15px;
+  }
+
+  ion-button {
+    width: 100%;
+  }
+}
+
+ion-row {
+  width: 90%;
+}
+
+.info-text {
+  padding-left: 16px;
+}

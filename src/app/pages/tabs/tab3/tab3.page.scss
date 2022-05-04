@@ -1,0 +1,119 @@
+.top-users {
+  padding-top: 16px;
+
+  .users-slider {
+    margin: 0 -16px;
+    padding: 0 16px;
+    ion-slide {
+      width: auto;
+      text-align: left;
+      .user {
+        ion-avatar {
+          width: 70px;
+          height: 70px;
+          display: flex;
+          margin: auto;
+          position: relative;
+          background: var(--ion-color-dark-shade);
+          ion-badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 23px;
+            height: 23px;
+            border-radius: 50px;
+            background: white;
+            color: var(--ion-color-dark);
+            font-size: 10px;
+          }
+        }
+        h6 {
+          font-weight: bold;
+          margin-top: 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.games {
+  padding-top: 32px;
+  .games-slider {
+    margin: 0 -16px;
+    padding: 0 16px;
+    ion-slide {
+      width: 125px;
+      text-align: left;
+      .category {
+        img {
+          width: 125px;
+          height: 175px;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+        p {
+          font-size: 13px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.categories {
+  padding-top: 32px;
+  ion-slides {
+    margin: 0 -16px;
+    padding: 0 16px;
+    ion-slide {
+      width: 125px;
+      text-align: left;
+      .category {
+        img {
+          width: 125px;
+          height: 125px;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+        p {
+          font-size: 13px;
+          font-weight: bold;
+          position: absolute;
+          bottom: 16px;
+          left: 16px;
+          width: 100%;
+        }
+        .gradient {
+          background: rgb(255, 255, 255);
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(16, 16, 16, 1) 100%
+          );
+          position: absolute;
+          height: 125px;
+          width: 125px;
+          top: 0;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
+
+.color {
+  &--1 {
+    background: #f7d656 !important;
+  }
+  &--2 {
+    background: #c6c6c6 !important;
+  }
+  &--3 {
+    background: #f39e69 !important;
+    color: white !important;
+  }
+}

@@ -1,0 +1,50 @@
+ngx-dropzone {
+  background: var(--ion-color-dark-tint);
+  height: 225px;
+  border-color: var(--ion-color-dark-shade);
+  width: 150px;
+  margin: auto;
+  margin-right: 10px;
+  ion-icon {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+  h6 {
+    font-size: 15px;
+    padding: 0 20px;
+  }
+}
+
+.video {
+  position: relative;
+  width: 150px;
+  height: 225px;
+  margin: auto;
+  margin-right: 10px;
+  video {
+    object-fit: cover;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background: var(--ion-color-dark-tint);
+  }
+  ion-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.options {
+  background: var(--ion-color-dark);
+  ion-item {
+    --padding-start: 0;
+    margin-right: -10px;
+    ion-icon {
+      font-size: 18px;
+    }
+  }
+}

@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage-angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth/auth.service';
 import { ComponentsService } from '../components/components.service';
+import CryptoJS from 'crypto-js';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +18,8 @@ export class ApiService {
         public storage: Storage,
         public auth: AuthService,
         public components: ComponentsService,
-        public router: Router
+        public router: Router,
+        private http: HttpClient
     ) { }
 
 
@@ -131,6 +134,105 @@ export class ApiService {
                 });
         });
     }
+
+    getLikeByUser(clipKey) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('clips')
+                .doc(clipKey)
+                .collection('likes')
+                .doc(this.auth.user)
+                .get()
+                .toPromise()
+                .then((snapshot) => {
+                    resolve(snapshot.exists);
+                }).catch((error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    updateLike(clip) {
+        return new Promise((resolve, reject) => {
+            if (clip.isLiked) {
+                this.db.collection('clips')
+                    .doc(clip.$key)
+                    .collection('likes')
+                    .doc(this.auth.user)
+                    .delete()
+            } else {
+                this.db.collection('clips')
+                    .doc(clip.$key)
+                    .collection('likes')
+                    .doc(this.auth.user)
+                    .set({})
+            }
+
+            this.db.collection('clips')
+                .doc(clip.$key)
+                .update({
+                    likes: clip.likes
+                })
+        });
+    }
+
+    makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+        return result;
+    }
+
+    uploadToCloudinary(file) {
+        return new Promise((resolve, reject) => {
+
+            const timestamp = Math.round((new Date).getTime() / 1000);
+
+            let public_id = this.makeid(20);
+
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("api_key", environment.cloudinary.api_key);
+            formData.append("public_id", public_id);
+            formData.append("return_delete_token", "1");
+            formData.append("timestamp", String(timestamp));
+            var signature = CryptoJS.SHA1(`public_id=${public_id}&return_delete_token=1&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
+            formData.append("signature", String(signature));
+            this.http.post(environment.cloudinary.upload.url, formData)
+                .subscribe(response => {
+                    resolve(response);
+                }, error => {
+                    console.log(error);
+
+                    reject(error);
+                });
+
+        })
+    }
+
+    deleteToCloudinary(image) {
+        return new Promise((resolve, reject) => {
+            const timestamp = Math.round((new Date).getTime() / 1000);
+
+            const formData = new FormData();
+            formData.append("api_key", environment.cloudinary.api_key);
+            formData.append("public_id", image.public_id);
+            formData.append("timestamp", String(timestamp));
+            var signature = CryptoJS.SHA1(`public_id=${image.public_id}&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
+            formData.append("signature", String(signature));
+            this.http.post(environment.cloudinary.delete.url, formData)
+                .subscribe(response => {
+                    resolve(response);
+                }, error => {
+                    reject(error);
+                });
+
+        })
+    }
+
 
     getRef(collection) {
         return this.db.collection(collection);

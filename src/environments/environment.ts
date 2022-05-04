@@ -3,8 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false
+    production: false,
+    cloudinary: {
+        api_key: '537917933843222',
+        cloud_name: 'dzvclpwar',
+        api_secret: '-NtcnTOoPDfcunlT9s4B-20DGGw',
+        upload: {
+            url: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/upload',
+        },
+        delete: {
+            url: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/destroy',
+        }
+    }
 };
+
 
 export const firebaseConfig = {
     apiKey: 'AIzaSyDKDoE2lo_5a_YJMU9Bm2kn1B4tA8ZvS-A',

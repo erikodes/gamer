@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -14,43 +13,54 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
     authState = new BehaviorSubject(false);
-    token: any;
+    user: string = this.getUserFromLocalStorage();
+    userData: any;
+
     constructor(
-        public storage: Storage,
         public database: AngularFireDatabase,
-        private angularAuth: AngularFireAuth,
+        public angularAuth: AngularFireAuth,
         private router: Router,
         public db: AngularFirestore,
 
     ) {
-        this.storage.create();
+        this.setupKeys();
+        // this.logOut();
+    }
+
+    setupKeys() {
+        this.angularAuth.authState.subscribe((firebaseUser) => {
+            if (firebaseUser) {
+                this.userData = firebaseUser;
+            }
+        });
+    }
+
+    getUserFromLocalStorage(): string {
+        return localStorage.getItem('user');
     }
 
     registerUser(username, email, password) {
         return new Promise((resolve, reject) => {
             firebase.auth().createUserWithEmailAndPassword(email, password).then(userDB => {
+                this.authState.next(true);
+                const batch = this.db.firestore.batch();
 
-                this.storage.set('token', userDB.user.uid).then((response) => {
-                    this.token = response;
-                    this.authState.next(true);
+                localStorage.setItem('user', userDB.user.uid);
+                this.user = userDB.user.uid;
+                this.setupKeys();
 
-                    const batch = this.db.firestore.batch();
-
-                    const idUser = this.db.createId();
-
-                    batch.set(this.db.firestore.collection(`users`).doc(idUser), {
-                        creationDate: new Date(),
-                        username,
-                        email,
-                    });
-
-                    batch.commit().then(data => {
-                        resolve(true);
-                    }, err => {
-                        reject();
-                    });
-
+                batch.set(this.db.firestore.collection(`users`).doc(this.user), {
+                    creationDate: new Date(),
+                    username,
+                    email,
                 });
+
+                batch.commit().then(data => {
+                    resolve(true);
+                }, err => {
+                    reject();
+                });
+
 
             }, error => {
                 reject(error);
@@ -65,18 +75,32 @@ export class AuthService {
                 .where('username', '==', username)
                 .get()
                 .then(snapshots => {
-                    snapshots.forEach(element => {
-                        const email = element.data().email;
-
-                        this.angularAuth.auth.signInWithEmailAndPassword(email, password).then((response) => {
-                            resolve(true);
-                        }, (err) => {
-                            reject(err);
+                    if (snapshots.empty) {
+                        reject();
+                    } else {
+                        snapshots.forEach(element => {
+                            const email = element.data().email;
+                            this.user = element.id;
+                            localStorage.setItem('user', element.id);
+                            this.setupKeys();
+                            this.angularAuth.auth.signInWithEmailAndPassword(email, password).then((response) => {
+                                resolve(true);
+                            }, (err) => {
+                                reject(err);
+                            });
                         });
-                    });
+                    }
                 });
 
 
+        });
+    }
+
+    logOut() {
+        return this.angularAuth.auth.signOut().then(() => {
+            localStorage.removeItem('user');
+            this.user = null;
+            this.router.navigateByUrl('auth');
         });
     }
 

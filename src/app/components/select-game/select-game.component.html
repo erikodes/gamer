@@ -1,0 +1,27 @@
+<ion-header class="light-header">
+    <ion-toolbar>
+        <ion-title>Seleccionar juego</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="dark" (click)="modalController.dismiss()">
+                <ion-icon slot="icon-only" color="dark" name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar color="light" (ionChange)="searching($event)" placeholder="Buscar juegos..."></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item class="ion-margin-vertical" *ngFor="let game of games" (click)="selectOption(game)" button>
+            <ion-thumbnail slot="start">
+                <img src="{{game.art}}" />
+            </ion-thumbnail>
+            <ion-label color="dark">{{game.name}}</ion-label>
+            <ion-radio slot="end" value="all"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-label class="d-flex ion-justify-content-center ion-padding-vertical" color="medium">
+        No se encontraron los resultados
+    </ion-label>
+</ion-content>
