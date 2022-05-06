@@ -10,13 +10,15 @@ import { SelectGameComponent } from './select-game/select-game.component';
 import { MenuClipComponent } from './menu-clip/menu-clip.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MenuProfileComponent } from './menu-profile/menu-profile.component';
+import { SelectCategoryComponent } from './select-category/select-category.component';
 @NgModule({
     declarations: [
         AddClipComponent,
         ViewOptionsComponent,
         SelectGameComponent,
         MenuClipComponent,
-        MenuProfileComponent
+        MenuProfileComponent,
+        SelectCategoryComponent
     ],
     imports: [
         CommonModule,
@@ -33,7 +35,8 @@ import { MenuProfileComponent } from './menu-profile/menu-profile.component';
         ViewOptionsComponent,
         SelectGameComponent,
         MenuClipComponent,
-        MenuProfileComponent
+        MenuProfileComponent,
+        SelectCategoryComponent
     ]
 })
 export class ComponentsModule { }

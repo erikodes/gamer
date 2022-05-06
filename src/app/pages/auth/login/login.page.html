@@ -13,11 +13,11 @@
     </div>
 
     <ion-list class="form ion-margin-top" mode="md">
-        <ion-item class="input">
+        <ion-item lines="none">
             <ion-label color="medium" position="floating">Nombre de usuario</ion-label>
             <ion-input [(ngModel)]="username" (keyup.enter)="passwordInput.setFocus()" #usernameId></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
             <ion-label color="medium" position="floating">Contraseña</ion-label>
             <ion-input [type]="passwordType" [(ngModel)]="password" (keyup.enter)="login()" #passwordId></ion-input>
             <ion-button slot="end" (click)="showPassword()" fill="clear" mode="ios" color="dark">

@@ -53,6 +53,7 @@ export class AuthService {
                     creationDate: new Date(),
                     username,
                     email,
+                    followers: 0
                 });
 
                 batch.commit().then(data => {

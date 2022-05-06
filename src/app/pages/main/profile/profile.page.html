@@ -16,7 +16,9 @@
 <ion-content>
     <ion-header collapse="condense" class="ion-no-border">
         <ion-toolbar class="ion-no-padding user">
-            <div class="banner" style="background-image: url({{user?.banner}})"></div>
+            <div class="banner" *ngIf="user?.banner" style="background-image: url({{user?.banner}})"></div>
+            <div class="banner" *ngIf="!user?.banner"
+                style="background-image: url('assets/images/default-banner.png');"></div>
             <ion-avatar>
                 <img [src]="user?.profilePicture" />
             </ion-avatar>
@@ -33,7 +35,7 @@
                 <p class="muted">Siguiendo</p>
             </ion-col>
             <ion-col size="4">
-                <h6>500</h6>
+                <h6>{{user?.followers}}</h6>
                 <p class="muted">Seguidores</p>
             </ion-col>
             <ion-col size="4">
@@ -43,16 +45,17 @@
         </ion-row>
     </ion-grid>
     <div class="d-flex ion-padding-horizontal ion-padding-bottom">
-        <ion-button class="ion-no-margin w--100" expand="block">
-            Seguir
+        <ion-button class="ion-no-margin w--100" expand="block" [color]="user?.isFollowed ? 'light' : 'primary'"
+            (click)="followUser()">
+            {{user?.isFollowed ? 'Dejar de seguir' : 'Seguir'}}
         </ion-button>
-        <ion-button class="ion-no-margin social-btn">
+        <ion-button class="ion-no-margin social-btn" fill="outline">
             <ion-icon slot="icon-only" name="logo-tiktok"></ion-icon>
         </ion-button>
-        <ion-button class="ion-no-margin social-btn">
+        <ion-button class="ion-no-margin social-btn" fill="outline">
             <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
         </ion-button>
-        <ion-button class="ion-no-margin social-btn">
+        <ion-button class="ion-no-margin social-btn" fill="outline">
             <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
         </ion-button>
     </div>

@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-slides (ionSlideWillChange)="slideChange(slides)" [options]="slideOptions" #slides>
+    <!-- <ion-slides (ionSlideWillChange)="slideChange(slides)" [options]="slideOptions" #slides>
         <ion-slide *ngFor="let clip of clips; let i = index">
             <div class="clip" (dblclick)="like(i, clip)">
                 <video [src]="clip.video.url" height="100%" width="100%" muted loop id="video-{{i}}" [autoplay]="false"
@@ -68,5 +68,5 @@
             </div>
             <ion-icon name="pause-outline" class="pause-indicator" *ngIf="!isPlaying"></ion-icon>
         </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
 </ion-content>

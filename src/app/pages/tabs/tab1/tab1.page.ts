@@ -3,7 +3,8 @@ import { ApiService } from 'src/app/services/api/api.service';
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
 import { MenuClipComponent } from 'src/app/components/menu-clip/menu-clip.component';
-import { games } from "../../../../assets/json/games";
+import { games } from '../../../../assets/json/games';
+import { categories } from '../../../../assets/json/categories';
 moment.locale('es');
 
 @Component({
@@ -21,11 +22,12 @@ export class Tab1Page {
     video: HTMLElement;
     isPlaying: any = true;
     games: any;
+    categories: any;
     lottieConfig = {
         loop: false,
         autoplay: false,
         path: '/assets/animations/like.json',
-        autoloadSegments: false
+        autoloadSegments: false,
     };
     likes: any = [];
 
@@ -35,6 +37,7 @@ export class Tab1Page {
         public modalController: ModalController
     ) {
         this.games = games;
+        this.categories = categories;
 
         api.getRef('clips').ref
             .get()
@@ -43,17 +46,20 @@ export class Tab1Page {
                     const clip = element.data();
                     clip.$key = element.id;
                     clip.creationDate = moment(clip.creationDate.toDate()).fromNow();
-                    const gameId = this.games.findIndex(element => element.id == clip.game);
+                    const gameId = this.games.findIndex(element => element.id === clip.game);
                     clip.game = this.games[gameId];
 
+                    const categoryId = this.categories.findIndex(element => element.id === clip.category);
+                    clip.category = this.categories[categoryId];
+
                     api.getDocument('users', clip.userKey).then(data => {
-                        clip.user = data
-                    })
+                        clip.user = data;
+                    });
 
                     api.getLikeByUser(clip.$key)
                         .then(likeStatus => {
                             clip.isLiked = likeStatus;
-                        })
+                        });
 
                     this.clips.push(clip);
                 });
@@ -103,6 +109,10 @@ export class Tab1Page {
         }
         this.api.updateLike(clip);
         clip.isLiked = !clip.isLiked;
+    }
+
+    reloadData(event) {
+
     }
 
     async openComments(clip) {

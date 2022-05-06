@@ -12,6 +12,7 @@ import { games } from "../../../../assets/json/games";
     styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+    userKey: any;
     user: any;
     clips: any = [];
     games: any = [];
@@ -25,18 +26,23 @@ export class ProfilePage implements OnInit {
         public auth: AuthService,
         public modalController: ModalController
     ) {
-        const userKey = this.actvRoute.snapshot.paramMap.get('userKey');
+        this.userKey = this.actvRoute.snapshot.paramMap.get('userKey');
 
         this.games = games;
 
-        api.getDocument('users', userKey).then(data => {
-            this.user = data
+        api.getDocument('users', this.userKey).then(data => {
+            this.user = data;
+
+            api.getFollowStatus(this.userKey)
+                .then(followStatus => {
+                    this.user.isFollowed = followStatus;
+                })
         })
     }
 
     ngOnInit() {
         this.api.getRef('clips').ref
-            .where('userKey', '==', this.auth.user)
+            .where('userKey', '==', this.userKey)
             .orderBy('likes', 'desc')
             .limit(10)
             .get()
@@ -62,5 +68,15 @@ export class ProfilePage implements OnInit {
         });
 
         return await modal.present();
+    }
+
+    followUser() {
+        if (this.user.isFollowed) {
+            this.user.followers -= 1;
+        } else {
+            this.user.followers += 1;
+        }
+        this.api.updateFollowStatus(this.user);
+        this.user.isFollowed = !this.user.isFollowed;
     }
 }

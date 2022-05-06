@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { MenuClipComponent } from 'src/app/components/menu-clip/menu-clip.component';
 import { games } from "../../../../assets/json/games";
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 moment.locale('es');
 
 @Component({
@@ -36,7 +37,8 @@ export class ClipPage implements OnInit {
         public api: ApiService,
         public elementRef: ElementRef,
         public modalController: ModalController,
-        public actvRoute: ActivatedRoute
+        public actvRoute: ActivatedRoute,
+        private auth: AuthService
     ) {
         const clipKey = this.actvRoute.snapshot.paramMap.get('clipKey');
         this.games = games;
@@ -52,7 +54,9 @@ export class ClipPage implements OnInit {
                 this.clip.user = data
             })
 
-            api.getLikeByUser(this.clip.$key)
+            api.getRef(`clips/${this.clip.$key}/likes/${auth.user}`)
+                .get()
+                .toPromise()
                 .then(likeStatus => {
                     this.clip.isLiked = likeStatus;
                 })

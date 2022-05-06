@@ -31,11 +31,10 @@ export class ApiService {
         });
     }
 
-
-
     ///////////////////////////////
     // GENERIC CRUD API REQUESTS
     ///////////////////////////////
+
     getAllDocuments(collection: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this.db.collection(collection)
@@ -135,46 +134,6 @@ export class ApiService {
         });
     }
 
-    getLikeByUser(clipKey) {
-        return new Promise((resolve, reject) => {
-            this.db.collection('clips')
-                .doc(clipKey)
-                .collection('likes')
-                .doc(this.auth.user)
-                .get()
-                .toPromise()
-                .then((snapshot) => {
-                    resolve(snapshot.exists);
-                }).catch((error: any) => {
-                    reject(error);
-                });
-        });
-    }
-
-    updateLike(clip) {
-        return new Promise((resolve, reject) => {
-            if (clip.isLiked) {
-                this.db.collection('clips')
-                    .doc(clip.$key)
-                    .collection('likes')
-                    .doc(this.auth.user)
-                    .delete()
-            } else {
-                this.db.collection('clips')
-                    .doc(clip.$key)
-                    .collection('likes')
-                    .doc(this.auth.user)
-                    .set({})
-            }
-
-            this.db.collection('clips')
-                .doc(clip.$key)
-                .update({
-                    likes: clip.likes
-                })
-        });
-    }
-
     makeid(length) {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -185,6 +144,14 @@ export class ApiService {
         }
         return result;
     }
+
+    getRef(collection) {
+        return this.db.collection(collection);
+    }
+
+    ///////////////////////////////
+    // CLOUDINARY
+    ///////////////////////////////
 
     uploadToCloudinary(file) {
         return new Promise((resolve, reject) => {
@@ -233,9 +200,83 @@ export class ApiService {
         })
     }
 
-
-    getRef(collection) {
-        return this.db.collection(collection);
+    getLikeByUser(clipKey) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('clips')
+                .doc(clipKey)
+                .collection('likes')
+                .doc(this.auth.user)
+                .get()
+                .toPromise()
+                .then((snapshot) => {
+                    resolve(snapshot.exists);
+                }).catch((error: any) => {
+                    reject(error);
+                });
+        });
     }
 
+    updateLike(clip) {
+        return new Promise((resolve, reject) => {
+            if (clip.isLiked) {
+                this.db.collection('clips')
+                    .doc(clip.$key)
+                    .collection('likes')
+                    .doc(this.auth.user)
+                    .delete()
+            } else {
+                this.db.collection('clips')
+                    .doc(clip.$key)
+                    .collection('likes')
+                    .doc(this.auth.user)
+                    .set({})
+            }
+
+            this.db.collection('clips')
+                .doc(clip.$key)
+                .update({
+                    likes: clip.likes
+                })
+        });
+    }
+
+    getFollowStatus(userKey) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users')
+                .doc(userKey)
+                .collection('followers')
+                .doc(this.auth.user)
+                .get()
+                .toPromise()
+                .then((snapshot) => {
+                    resolve(snapshot.exists);
+                }).catch((error: any) => {
+                    reject(error);
+                });
+        });
+    }
+
+    updateFollowStatus(user) {
+        return new Promise((resolve, reject) => {
+            if (user.isFollowed) {
+                this.db.collection('users')
+                    .doc(user.$key)
+                    .collection('followers')
+                    .doc(this.auth.user)
+                    .delete()
+            } else {
+                this.db.collection('users')
+                    .doc(user.$key)
+                    .collection('followers')
+                    .doc(this.auth.user)
+                    .set({})
+            }
+
+            this.db.collection('users')
+                .doc(user.$key)
+                .update({
+                    followers: user.followers
+                })
+        });
+    }
 }

@@ -8,6 +8,7 @@ import { SelectGameComponent } from '../select-game/select-game.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SelectCategoryComponent } from '../select-category/select-category.component';
 
 @Component({
     selector: 'app-add-clip',
@@ -22,6 +23,7 @@ export class AddClipComponent implements OnInit {
     clipForm: FormGroup;
     files: File[] = [];
     game: any = '';
+    category: any = '';
 
     constructor(
         public modalController: ModalController,
@@ -38,6 +40,7 @@ export class AddClipComponent implements OnInit {
             comments: [true],
             tags: [''],
             game: ['', [Validators.required]],
+            category: ['', [Validators.required]],
             userKey: [auth.user],
             likes: [0]
         });
@@ -99,7 +102,6 @@ export class AddClipComponent implements OnInit {
     async selectGame() {
         const modal = await this.modalController.create({
             component: SelectGameComponent,
-            cssClass: 'select-game--modal',
             swipeToClose: true,
             componentProps: {
                 game: this.clipForm.controls.game.value
@@ -110,6 +112,25 @@ export class AddClipComponent implements OnInit {
             if (data.data) {
                 this.game = data.data;
                 this.clipForm.controls.game.setValue(this.game.id);
+            }
+        });
+
+        return await modal.present();
+    }
+
+    async selectCategory() {
+        const modal = await this.modalController.create({
+            component: SelectCategoryComponent,
+            swipeToClose: true,
+            componentProps: {
+                category: this.clipForm.controls.category.value
+            }
+        });
+
+        modal.onDidDismiss().then((data) => {
+            if (data.data) {
+                this.category = data.data;
+                this.clipForm.controls.category.setValue(this.category.id);
             }
         });
 

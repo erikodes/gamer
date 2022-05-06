@@ -368,42 +368,6 @@ ion-footer {
     font-size: 18px;
     margin-top: 13px;
   }
-  .game {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    padding: 3px;
-    padding-right: 10px;
-    background: #1212126f;
-    border-radius: 6px;
-    ion-label {
-      text-align: left;
-      margin-left: 10px;
-      padding: 0;
-      h3 {
-        font-weight: bold;
-        font-size: 11px;
-      }
-      p {
-        color: var(--ion-color-light);
-        font-size: 10px;
-        opacity: 0.8;
-      }
-    }
-    ion-thumbnail {
-      width: 25px;
-      height: 35px;
-      border-radius: 6px;
-      img {
-        width: 25px;
-        height: 35px;
-        border-radius: 6px;
-      }
-    }
-  }
   .bottom-content {
     position: absolute;
     bottom: 0;
@@ -418,7 +382,7 @@ ion-footer {
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(16, 16, 16, 0.75) 100%
+      rgba(16, 16, 16, 0.5) 100%
     );
     .container {
       width: 100%;
@@ -429,16 +393,10 @@ ion-footer {
         width: fit-content;
         display: flex;
         align-items: center;
-        padding: 4px;
-        background: #1212126f;
-        border-radius: 50px;
         ion-avatar {
           margin: 0;
           width: 35px;
           height: 35px;
-          margin-top: -3px;
-          margin-bottom: -3px;
-          margin-left: -2px;
         }
         ion-label {
           margin: 0;
@@ -447,7 +405,7 @@ ion-footer {
           h2 {
             font-size: 14px;
             margin: 0;
-            font-weight: bold;
+            font-weight: 600;
           }
           p {
             color: white;
@@ -456,7 +414,7 @@ ion-footer {
           }
         }
         ion-button {
-          height: 30px;
+          height: 25px;
           margin: 0;
           font-size: 11px;
           --padding-end: 10px;
@@ -468,24 +426,84 @@ ion-footer {
         font-size: 14px;
         margin-top: 16px;
       }
-      .clip-categories {
-        ion-badge {
-          font-size: 13px;
-          margin-top: 16px;
-          display: flex;
-          align-items: center;
-          width: fit-content;
-          border-radius: 6px;
-          background: rgba(255, 255, 255, 0.08);
-          box-shadow: inset -2px -4px 43px rgb(255 255 255 / 30%);
-          -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
-          ion-icon {
-            font-size: 13px;
-            margin-right: 10px;
+      .game {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        padding: 3px;
+        padding-right: 10px;
+        background: #1212126f;
+        border-radius: 6px;
+        margin-top: 16px;
+        ion-label {
+          text-align: left;
+          margin-left: 10px;
+          padding: 0;
+          h3 {
+            font-weight: bold;
+            font-size: 11px;
+          }
+          p {
+            color: var(--ion-color-light);
+            font-size: 10px;
+            opacity: 0.8;
+          }
+        }
+        ion-thumbnail {
+          width: 25px;
+          height: 35px;
+          border-radius: 4px;
+          img {
+            width: 25px;
+            height: 35px;
+            border-radius: 4px;
           }
         }
       }
+      .category {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        padding: 3px;
+        padding-right: 10px;
+        background: #1212126f;
+        border-radius: 6px;
+        margin-top: 16px;
+        ion-label {
+          text-align: left;
+          margin-left: 10px;
+          padding: 0;
+          h3 {
+            font-weight: bold;
+            font-size: 11px;
+          }
+        }
+        ion-thumbnail {
+          width: 35px;
+          height: 35px;
+          border-radius: 6px;
+          img {
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+          }
+        }
+      }
+      //   .category {
+      //     font-size: 13px;
+      //     display: flex;
+      //     align-items: center;
+      //     width: fit-content;
+      //     border-radius: 6px;
+      //     background: rgba(255, 255, 255, 0.08);
+      //     box-shadow: inset -2px -4px 43px rgb(255 255 255 / 30%);
+      //     -webkit-backdrop-filter: blur(20px);
+      //     backdrop-filter: blur(20px);
+      //     ion-icon {
+      //       font-size: 13px;
+      //       margin-right: 10px;
+      //     }
+      //   }
     }
     .buttons {
       display: flex;
