@@ -1,0 +1,21 @@
+ion-item {
+  --background: #191919;
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.version {
+  color: var(--ion-color-medium);
+  padding: 16px;
+  text-align: center;
+}
+
+ion-item-divider {
+  ion-label {
+    padding-top: 16px;
+    padding-bottom: 8px;
+  }
+}

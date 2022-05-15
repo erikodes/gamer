@@ -24,6 +24,7 @@ export class AddClipComponent implements OnInit {
     files: File[] = [];
     game: any = '';
     category: any = '';
+    uploadingClip: any = false;
 
     constructor(
         public modalController: ModalController,
@@ -54,30 +55,26 @@ export class AddClipComponent implements OnInit {
     onSelectVideo(event) {
         this.files.push(...event.addedFiles);
         let file = event.addedFiles[0];
+        this.uploadingClip = true;
 
-        this.api.uploadToCloudinary(file).then(data => {
+        this.api.uploadToCloudinary('video', file).then(data => {
             this.file = data;
-
             this.clipForm.controls.video.setValue({
                 url: this.file.url,
                 public_id: this.file.public_id
             });
+            this.uploadingClip = false;
         }, err => {
             this.components.showToast('Formato de imagen incorrecto.', 'error');
+            this.uploadingClip = false;
         })
     }
 
     removeVideo() {
-        console.log('a');
-
-        this.api.deleteToCloudinary(this.file).then(() => {
+        this.api.deleteToCloudinary('video', this.file).then(() => {
             this.file = '';
             this.components.showToast('Video eliminado correctamente', 'success');
         });
-    }
-
-    ionViewDidDismiss() {
-        this.removeVideo();
     }
 
     async viewOptions() {

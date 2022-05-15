@@ -1,7 +1,13 @@
 <ion-content class="ion-padding">
     <div class="d-flex ion-padding-bottom">
-        <ion-searchbar placeholder="Buscar usuarios, colecciones..."></ion-searchbar>
+        <ion-searchbar color="light" placeholder="Buscar usuarios, colecciones..."></ion-searchbar>
     </div>
+    <ion-slides class="news-slider" (ionSlideWillChange)="slideChange(slides)" [options]="slideOpts" #slides>
+        <ion-slide *ngFor="let item of [].constructor(10); let i = index">
+            <img src="https://m.media-amazon.com/images/S/sonata-images-prod/SVOD_ROW_BoschLegacy/d05a03d7-609d-465a-8b30-715e9df55f26._UR3000,600_SX3000_FMwebp_.jpeg"
+                alt="" [ngClass]="{'active-img': slide == i}">
+        </ion-slide>
+    </ion-slides>
     <div class="top-users">
         <div class="title d-flex">
             <h3>Mejores gamers</h3>
@@ -11,10 +17,9 @@
         </div>
         <ion-slides class="users-slider" [options]="{slidesPerView: 'auto', spaceBetween: 28}">
             <ion-slide *ngFor="let user of users; let i = index">
-                <div class="user">
+                <div class="user" routerLink="/profile/{{user.$key}}">
                     <ion-avatar>
-                        <img
-                            src="{{user.profilePicture ? user.profilePicture : 'https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png'}}" />
+                        <img src="{{user.profilePicture ? user.profilePicture : 'assets/images/default-user.png'}}" />
                         <ion-badge class="color--{{i + 1}}">{{i + 1}}</ion-badge>
                     </ion-avatar>
                     <h6 class="wrap wrap--1">{{user.username}}</h6>
@@ -39,22 +44,22 @@
         </ion-slides>
     </div>
     <div class="categories">
-        <div class="title d-flex">
+        <div class="title">
             <h3>Categorías</h3>
-            <ion-button fill="clear" color="dark" class="ion-no-padding">
-                <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
-            </ion-button>
         </div>
-        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 15}">
-            <ion-slide *ngFor="let category of categories; let i = index">
-                <div class="category">
-                    <img src="{{category.art}}" alt="">
-                    <ion-button color="medium" fill="clear">
-                        <ion-icon name="ellipsis-vertical-outline" slot="icon-only"></ion-icon>
-                    </ion-button>
-                    <p class="wrap wrap--1">{{category.name}}</p>
-                </div>
-            </ion-slide>
-        </ion-slides>
+        <ion-grid class="ion-no-padding">
+            <ion-row>
+                <ion-col size="6" *ngFor="let category of categories; let i = index">
+                    <div class="category">
+                        <ion-thumbnail>
+                            <img [src]="category.art" />
+                        </ion-thumbnail>
+                        <ion-label>
+                            <h3>{{category.shortName}}</h3>
+                        </ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </div>
 </ion-content>

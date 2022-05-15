@@ -11,6 +11,8 @@ import { MenuClipComponent } from './menu-clip/menu-clip.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MenuProfileComponent } from './menu-profile/menu-profile.component';
 import { SelectCategoryComponent } from './select-category/select-category.component';
+import { SetSocialComponent } from './set-social/set-social.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 @NgModule({
     declarations: [
         AddClipComponent,
@@ -18,7 +20,9 @@ import { SelectCategoryComponent } from './select-category/select-category.compo
         SelectGameComponent,
         MenuClipComponent,
         MenuProfileComponent,
-        SelectCategoryComponent
+        SelectCategoryComponent,
+        SetSocialComponent,
+        DatePickerComponent
     ],
     imports: [
         CommonModule,
@@ -36,7 +40,9 @@ import { SelectCategoryComponent } from './select-category/select-category.compo
         SelectGameComponent,
         MenuClipComponent,
         MenuProfileComponent,
-        SelectCategoryComponent
+        SelectCategoryComponent,
+        SetSocialComponent,
+        DatePickerComponent
     ]
 })
 export class ComponentsModule { }

@@ -25,7 +25,11 @@ const routes: Routes = [
     {
         path: 'clip/:clipKey',
         loadChildren: () => import('./pages/main/clip/clip.module').then(m => m.ClipPageModule)
-    }
+    },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/main/settings/settings.module').then( m => m.SettingsPageModule)
+  }
 ];
 @NgModule({
     imports: [

@@ -13,18 +13,26 @@
                         <div class="user" routerLink="/profile/{{clip.userKey}}">
                             <ion-avatar slot="start">
                                 <img
-                                    src="{{clip.user?.profilePicture ? clip.user?.profilePicture : 'assets/images/default-user.png'}}" />
+                                    src="{{clip.user?.profilePicture ? clip.user?.profilePicture.url : 'assets/images/default-user.png'}}" />
                             </ion-avatar>
                             <ion-label>
                                 <h2>@{{clip.user?.username}}</h2>
-                                <p>{{clip.creationDate}}</p>
+                                <p>
+                                    <ion-icon name="time"></ion-icon>
+                                    {{clip.creationDate}}
+                                </p>
                             </ion-label>
-                            <ion-button fill="solid" shape="round" color="light" slot="end">
-                                Seguir
+                            <ion-button fill="solid" shape="round" color="light" slot="end"
+                                *ngIf="clip.user?.$key !== auth.user"
+                                [ngClass]="{'hide-follow-btn': clip.user?.isFollowed}"
+                                (click)="followUser(clip.user); components.preventTouch($event)">
+                                {{clip.user?.isFollowed ? '' : 'Seguir'}}
+                                <ion-icon color="dark" *ngIf="clip.user?.isFollowed" name="checkmark-outline">
+                                </ion-icon>
                             </ion-button>
                         </div>
                         <p class="clip-title wrap--1">{{clip.title}}</p>
-                        <div class="d-flex">
+                        <div class="d-flex ion-margin-top">
                             <div class="game">
                                 <ion-thumbnail>
                                     <img src="{{clip.game.art}}" />
@@ -57,7 +65,7 @@
                         </div>
                         <div class="button" (click)="openComments(clip)"
                             [ngClass]="{'button-disabled': !clip.comments}">
-                            <ion-icon class="icon-message"></ion-icon>
+                            <ion-icon class="icon-comments"></ion-icon>
                             <p>50</p>
                         </div>
                         <div class="button">

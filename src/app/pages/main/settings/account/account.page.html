@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Cuenta</ion-title>
+        <ion-buttons slot="end">
+            <ion-button class="ion-padding-end font-bold" color="primary" (click)="saveChanges()">
+                Guardar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list class="form ion-no-padding" mode="md" *ngIf="user">
+        <ngx-dropzone (change)="updatePhoto('banner', $event)" class="banner" [multiple]="false"
+            [maxFileSize]="1073741824" accept="image/jpeg,image/jpg,image/png,image/webp">
+            <ngx-dropzone-label>
+                <img src="{{user?.banner ? user?.banner.url : 'assets/images/default-banner.png'}}" alt="">
+                <div class="layout-add">
+                    <ion-icon name="camera-outline" *ngIf="!uploadingBanner"></ion-icon>
+                    <ion-spinner name="crescent" *ngIf="uploadingBanner"></ion-spinner>
+                </div>
+            </ngx-dropzone-label>
+        </ngx-dropzone>
+        <ngx-dropzone (change)="updatePhoto('profilePicture', $event)" class="profile-picture" [multiple]="false"
+            [maxFileSize]="1073741824" accept="image/jpeg,image/jpg,image/png,image/webp">
+            <ngx-dropzone-label>
+                <img src="{{user?.profilePicture ? user?.profilePicture.url : 'assets/images/default-user.png'}}"
+                    alt="">
+                <div class="layout-add">
+                    <ion-icon name="camera-outline" *ngIf="!uploadingImage"></ion-icon>
+                    <ion-spinner name="crescent" *ngIf="uploadingImage"></ion-spinner>
+                </div>
+            </ngx-dropzone-label>
+        </ngx-dropzone>
+        <div class="ion-padding-horizontal ion-padding-top">
+            <ion-item lines="none">
+                <ion-label color="medium" position="floating">Username</ion-label>
+                <ion-input [(ngModel)]="user.username"></ion-input>
+            </ion-item>
+            <p class="input-note">Podras cambiarlo de nuevo en 16 dias.</p>
+            <ion-item lines="none">
+                <ion-label color="medium" position="floating">Email</ion-label>
+                <ion-input [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label color="medium" position="floating">Biography</ion-label>
+                <ion-textarea [(ngModel)]="user.biography"></ion-textarea>
+            </ion-item>
+            <ion-item lines="none" (click)="openDatePicker()">
+                <ion-label color="medium" position="floating">Fecha de nacimiento</ion-label>
+                <ion-input readonly [(ngModel)]="birthdate"></ion-input>
+            </ion-item>
+        </div>
+        <hr>
+        <ion-item-divider color="dark">
+            <ion-label color="medium">SOCIAL</ion-label>
+        </ion-item-divider>
+        <div class="socials">
+            <ion-item detail="true" (click)="setUsername('Tiktok', user.tiktok)">
+                <ion-icon name="logo-tiktok" slot="start"></ion-icon>
+                <ion-label>TikTok</ion-label>
+                <ion-label slot="end" color="medium">{{user?.tiktok ? '@' + user?.tiktok : 'Vincular cuenta'}}
+                </ion-label>
+            </ion-item>
+            <ion-item detail="true" (click)="setUsername('Instagram', user.instagram)">
+                <ion-icon name="logo-instagram" slot="start"></ion-icon>
+                <ion-label>Instagram</ion-label>
+                <ion-label slot="end" color="medium">{{user?.instagram ? '@' + user?.instagram : 'Vincular cuenta'}}
+                </ion-label>
+            </ion-item>
+            <ion-item detail="true" (click)="setUsername('Twitter', user.twitter)">
+                <ion-icon name="logo-twitter" slot="start"></ion-icon>
+                <ion-label>Twitter</ion-label>
+                <ion-label slot="end" color="medium">{{user?.twitter ? '@' + user?.twitter : 'Vincular cuenta'}}
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

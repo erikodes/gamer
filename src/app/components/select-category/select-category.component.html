@@ -1,20 +1,19 @@
 <ion-header class="light-header">
     <ion-toolbar>
-        <ion-title>Seleccionar juego</ion-title>
-        <ion-buttons slot="end">
+        <ion-buttons slot="start">
             <ion-button color="dark" (click)="modalController.dismiss()">
                 <ion-icon slot="icon-only" color="dark" name="close-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
+        <ion-title>Select channel</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar color="light" (ionChange)="searching($event)" placeholder="Buscar categorías..."></ion-searchbar>
+        <ion-searchbar color="light" (ionChange)="searching($event)" placeholder="Search channels"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-item class="ion-margin-vertical" *ngFor="let category of categories" (click)="selectOption(category)"
-            button>
+        <ion-item lines="full" *ngFor="let category of categories" (click)="selectOption(category)" button>
             <ion-thumbnail slot="start">
                 <img src="{{category.art}}" />
             </ion-thumbnail>

@@ -5,6 +5,9 @@ import { ModalController } from '@ionic/angular';
 import { MenuClipComponent } from 'src/app/components/menu-clip/menu-clip.component';
 import { games } from '../../../../assets/json/games';
 import { categories } from '../../../../assets/json/categories';
+import { ComponentsService } from 'src/app/services/components/components.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 moment.locale('es');
 
 @Component({
@@ -34,7 +37,10 @@ export class Tab1Page {
     constructor(
         public api: ApiService,
         public elementRef: ElementRef,
-        public modalController: ModalController
+        public modalController: ModalController,
+        public components: ComponentsService,
+        public actvRoute: ActivatedRoute,
+        public auth: AuthService
     ) {
         this.games = games;
         this.categories = categories;
@@ -54,6 +60,11 @@ export class Tab1Page {
 
                     api.getDocument('users', clip.userKey).then(data => {
                         clip.user = data;
+
+                        api.getFollowStatus(clip.userKey)
+                            .then(followStatus => {
+                                clip.user.isFollowed = followStatus;
+                            })
                     });
 
                     api.getLikeByUser(clip.$key)
@@ -63,7 +74,16 @@ export class Tab1Page {
 
                     this.clips.push(clip);
                 });
+
+                setTimeout(() => {
+                    (<HTMLVideoElement>document.getElementById('video-0')).play();
+                }, 1000);
             });
+    }
+
+    ionViewWillLeave() {
+        console.log('a');
+
     }
 
     slideChange(slides) {
@@ -111,8 +131,14 @@ export class Tab1Page {
         clip.isLiked = !clip.isLiked;
     }
 
-    reloadData(event) {
-
+    followUser(user) {
+        if (user.isFollowed) {
+            user.followers -= 1;
+        } else {
+            user.followers += 1;
+        }
+        this.api.updateFollowStatus(user);
+        user.isFollowed = !user.isFollowed;
     }
 
     async openComments(clip) {

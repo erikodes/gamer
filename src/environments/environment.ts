@@ -9,10 +9,12 @@ export const environment = {
         cloud_name: 'dzvclpwar',
         api_secret: '-NtcnTOoPDfcunlT9s4B-20DGGw',
         upload: {
-            url: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/upload',
+            url_video: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/upload',
+            url_image: 'https://api.cloudinary.com/v1_1/dzvclpwar/image/upload',
         },
         delete: {
-            url: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/destroy',
+            url_video: 'https://api.cloudinary.com/v1_1/dzvclpwar/video/destroy',
+            url_image: 'https://api.cloudinary.com/v1_1/dzvclpwar/image/destroy',
         }
     }
 };

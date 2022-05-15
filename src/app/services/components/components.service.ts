@@ -49,4 +49,10 @@ export class ComponentsService {
         }
     }
 
+    preventTouch(ev: any) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+    }
+
 }

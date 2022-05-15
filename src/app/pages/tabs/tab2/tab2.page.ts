@@ -12,7 +12,13 @@ export class Tab2Page {
     users: any = [];
     games: any = [];
     categories: any = [];
-
+    slide: any = 0;
+    slideOpts = {
+        slidesPerView: 'auto',
+        initialSlide: 1,
+        centeredSlides: true,
+        spaceBetween: 20
+    }
     constructor(
         public api: ApiService
     ) {
@@ -37,5 +43,11 @@ export class Tab2Page {
                     this.users.push(user);
                 });
             });
+    }
+
+    slideChange(slides) {
+        slides.getActiveIndex().then(index => {
+            this.slide = index;
+        });
     }
 }

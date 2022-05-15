@@ -20,7 +20,7 @@
             <div class="banner" *ngIf="!user?.banner"
                 style="background-image: url('assets/images/default-banner.png');"></div>
             <ion-avatar>
-                <img [src]="user?.profilePicture" />
+                <img [src]="user?.profilePicture ? user?.profilePicture : 'assets/images/default-user.png'" />
             </ion-avatar>
             <h3 class="username-lbl">
                 @{{user?.username}}

@@ -3,13 +3,23 @@ ion-content {
 }
 
 ion-thumbnail {
-  height: 100px;
-  width: 75px;
+  height: 85px;
+  width: 65px;
   border-radius: 10px;
   --border-radius: 5px;
+  margin: 16px 0;
+  margin-right: 16px;
 }
 
 ion-label {
   font-weight: bold;
   font-size: 16px !important;
+}
+
+ion-item {
+  --border-color: var(--ion-color-light);
+}
+
+ion-searchbar {
+  margin-bottom: 5px;
 }

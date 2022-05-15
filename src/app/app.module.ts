@@ -16,6 +16,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { AuthService } from './services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components/components.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [AppComponent],
@@ -35,6 +36,8 @@ import { ComponentsModule } from './components/components.module';
         AngularFireAuthModule,
         AngularFireDatabaseModule,
         AngularFirestoreModule,
+        ReactiveFormsModule,
+        FormsModule,
         IonicStorageModule.forRoot(),
         AngularFireModule.initializeApp(firebaseConfig),
         ComponentsModule
@@ -46,6 +49,6 @@ import { ComponentsModule } from './components/components.module';
         },
         AuthService,
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,6 +28,7 @@
     "@ionic/angular": "^6.0.0",
     "@ionic/storage-angular": "^3.0.6",
     "angularfire2": "^5.4.2",
+    "br-mask": "0.0.10",
     "crypto-js": "^4.1.1",
     "firebase": "^7.19.1",
     "lottie-web": "^5.9.2",

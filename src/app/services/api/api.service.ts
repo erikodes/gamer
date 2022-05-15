@@ -153,12 +153,19 @@ export class ApiService {
     // CLOUDINARY
     ///////////////////////////////
 
-    uploadToCloudinary(file) {
+    uploadToCloudinary(type, file) {
         return new Promise((resolve, reject) => {
 
             const timestamp = Math.round((new Date).getTime() / 1000);
 
             let public_id = this.makeid(20);
+            let url;
+
+            if (type == 'video') {
+                url = environment.cloudinary.upload.url_video
+            } else {
+                url = environment.cloudinary.upload.url_image;
+            }
 
             const formData = new FormData();
             formData.append("file", file);
@@ -168,21 +175,26 @@ export class ApiService {
             formData.append("timestamp", String(timestamp));
             var signature = CryptoJS.SHA1(`public_id=${public_id}&return_delete_token=1&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
             formData.append("signature", String(signature));
-            this.http.post(environment.cloudinary.upload.url, formData)
+            this.http.post(url, formData)
                 .subscribe(response => {
                     resolve(response);
                 }, error => {
-                    console.log(error);
-
                     reject(error);
                 });
-
         })
     }
 
-    deleteToCloudinary(image) {
+    deleteToCloudinary(type, image) {
         return new Promise((resolve, reject) => {
             const timestamp = Math.round((new Date).getTime() / 1000);
+
+            let url;
+
+            if (type == 'video') {
+                url = environment.cloudinary.upload.url_video
+            } else {
+                url = environment.cloudinary.upload.url_image;
+            }
 
             const formData = new FormData();
             formData.append("api_key", environment.cloudinary.api_key);
@@ -190,7 +202,7 @@ export class ApiService {
             formData.append("timestamp", String(timestamp));
             var signature = CryptoJS.SHA1(`public_id=${image.public_id}&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
             formData.append("signature", String(signature));
-            this.http.post(environment.cloudinary.delete.url, formData)
+            this.http.post(url, formData)
                 .subscribe(response => {
                     resolve(response);
                 }, error => {
