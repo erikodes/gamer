@@ -20,7 +20,7 @@
                             <div *ngIf="!uploadingClip">
                                 <ion-icon class="icon-video"></ion-icon>
                                 <h6 class="font-bold ion-margin-bottom">
-                                    Select video to upload
+                                    Select clip to upload
                                 </h6>
                                 <p>720x1280 resolution or higher</p>
                                 <p>Less than 1 GB</p>
@@ -74,10 +74,10 @@
                     <ion-label>Select game</ion-label>
                     <ion-label slot="end" color="medium">{{game.name}}</ion-label>
                 </ion-item>
-                <ion-item class="ion-margin-bottom" detail="true" (click)="selectCategory()">
+                <ion-item class="ion-margin-bottom" detail="true" (click)="selectChannel()">
                     <ion-icon class="icon-category" slot="start"></ion-icon>
                     <ion-label>Add to a channel</ion-label>
-                    <ion-label slot="end" color="medium">{{category.name}}</ion-label>
+                    <ion-label slot="end" color="medium">{{channel.name}}</ion-label>
                 </ion-item>
             </ion-list>
         </ion-list>

@@ -8,7 +8,7 @@ import { SelectGameComponent } from '../select-game/select-game.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { SelectCategoryComponent } from '../select-category/select-category.component';
+import { SelectChannelComponent } from '../select-channel/select-channel.component';
 
 @Component({
     selector: 'app-add-clip',
@@ -23,7 +23,7 @@ export class AddClipComponent implements OnInit {
     clipForm: FormGroup;
     files: File[] = [];
     game: any = '';
-    category: any = '';
+    channel: any = '';
     uploadingClip: any = false;
 
     constructor(
@@ -41,7 +41,7 @@ export class AddClipComponent implements OnInit {
             comments: [true],
             tags: [''],
             game: ['', [Validators.required]],
-            category: ['', [Validators.required]],
+            channel: ['', [Validators.required]],
             userKey: [auth.user],
             likes: [0]
         });
@@ -54,20 +54,20 @@ export class AddClipComponent implements OnInit {
 
     onSelectVideo(event) {
         this.files.push(...event.addedFiles);
-        let file = event.addedFiles[0];
+        const file = event.addedFiles[0];
         this.uploadingClip = true;
 
         this.api.uploadToCloudinary('video', file).then(data => {
             this.file = data;
             this.clipForm.controls.video.setValue({
                 url: this.file.url,
-                public_id: this.file.public_id
+                publicId: this.file.public_id
             });
             this.uploadingClip = false;
         }, err => {
             this.components.showToast('Formato de imagen incorrecto.', 'error');
             this.uploadingClip = false;
-        })
+        });
     }
 
     removeVideo() {
@@ -80,7 +80,7 @@ export class AddClipComponent implements OnInit {
     async viewOptions() {
         const modal = await this.modalController.create({
             component: ViewOptionsComponent,
-            cssClass: 'view-options-modal',
+            cssClass: 'view-options-modal fit-modal',
             swipeToClose: true,
             componentProps: {
                 option: this.clipForm.controls.viewOption.value
@@ -115,19 +115,19 @@ export class AddClipComponent implements OnInit {
         return await modal.present();
     }
 
-    async selectCategory() {
+    async selectChannel() {
         const modal = await this.modalController.create({
-            component: SelectCategoryComponent,
+            component: SelectChannelComponent,
             swipeToClose: true,
             componentProps: {
-                category: this.clipForm.controls.category.value
+                channel: this.clipForm.controls.channel.value
             }
         });
 
         modal.onDidDismiss().then((data) => {
             if (data.data) {
-                this.category = data.data;
-                this.clipForm.controls.category.setValue(this.category.id);
+                this.channel = data.data;
+                this.clipForm.controls.channel.setValue(this.channel.id);
             }
         });
 

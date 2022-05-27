@@ -1,7 +1,3 @@
-ion-content {
-  --background: white;
-}
-
 ion-thumbnail {
   height: 40px;
   width: 40px;
@@ -14,10 +10,6 @@ ion-thumbnail {
 ion-label {
   font-weight: bold;
   font-size: 16px !important;
-}
-
-ion-item {
-  --border-color: var(--ion-color-light);
 }
 
 ion-searchbar {

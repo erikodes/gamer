@@ -1,13 +1,3 @@
-<ion-header class="light-header">
-    <ion-toolbar>
-        <ion-title>Select birthdate</ion-title>
-        <ion-buttons slot="end">
-            <ion-button color="dark" (click)="modalController.dismiss()">
-                <ion-icon slot="icon-only" color="light" name="close-outline"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
 <ion-content>
     <div class="hacking-datetime">
         <ion-datetime presentation="year" [(ngModel)]="day" [yearValues]="yearValues">

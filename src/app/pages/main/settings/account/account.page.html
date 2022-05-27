@@ -3,9 +3,9 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title>Cuenta</ion-title>
+        <ion-title>My Account</ion-title>
         <ion-buttons slot="end">
-            <ion-button class="ion-padding-end font-bold" color="primary" (click)="saveChanges()">
+            <ion-button class="font-bold" color="primary" (click)="saveChanges()">
                 Guardar
             </ion-button>
         </ion-buttons>
@@ -50,15 +50,16 @@
                 <ion-textarea [(ngModel)]="user.biography"></ion-textarea>
             </ion-item>
             <ion-item lines="none" (click)="openDatePicker()">
-                <ion-label color="medium" position="floating">Fecha de nacimiento</ion-label>
+                <ion-label color="medium" position="floating">Birthdate</ion-label>
                 <ion-input readonly [(ngModel)]="birthdate"></ion-input>
             </ion-item>
+            <p class="input-note">La fecha de nacimiento es visible solo por ti.</p>
         </div>
         <hr>
         <ion-item-divider color="dark">
             <ion-label color="medium">SOCIAL</ion-label>
         </ion-item-divider>
-        <div class="socials">
+        <div class="socials ion-padding-bottom">
             <ion-item detail="true" (click)="setUsername('Tiktok', user.tiktok)">
                 <ion-icon name="logo-tiktok" slot="start"></ion-icon>
                 <ion-label>TikTok</ion-label>
@@ -79,4 +80,5 @@
             </ion-item>
         </div>
     </ion-list>
+    <ion-spinner class="spin" *ngIf="!user" name="crescent"></ion-spinner>
 </ion-content>

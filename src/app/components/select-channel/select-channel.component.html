@@ -1,11 +1,11 @@
 <ion-header class="light-header">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-button color="dark" (click)="modalController.dismiss()">
-                <ion-icon slot="icon-only" color="dark" name="close-outline"></ion-icon>
+            <ion-button (click)="modalController.dismiss()">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Select channel</ion-title>
+        <ion-title>Select a channel</ion-title>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar color="light" (ionChange)="searching($event)" placeholder="Search channels"></ion-searchbar>
@@ -13,16 +13,16 @@
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-item lines="full" *ngFor="let category of categories" (click)="selectOption(category)" button>
+        <ion-item lines="full" *ngFor="let channel of channels" (click)="selectOption(channel)" button>
             <ion-thumbnail slot="start">
-                <img src="{{category.art}}" />
+                <img src="{{channel.art}}" />
             </ion-thumbnail>
-            <ion-label color="dark">{{category.name}}</ion-label>
+            <ion-label>{{channel.name}}</ion-label>
             <ion-radio slot="end" value="all"></ion-radio>
         </ion-item>
     </ion-list>
     <ion-label class="d-flex ion-justify-content-center ion-padding-vertical ion-margin-vertical" color="medium"
-        *ngIf="categories.length == 0">
+        *ngIf="channels.length === 0">
         No se encontraron los resultados.
     </ion-label>
 </ion-content>

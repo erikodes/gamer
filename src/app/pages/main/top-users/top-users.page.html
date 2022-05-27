@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-buttons slot="start">
+                <ion-back-button></ion-back-button>
+            </ion-buttons>
+        </ion-buttons>
+        <ion-title>Best gamers</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item detail="false" *ngFor="let user of users; let i = index" routerLink="/profile/{{user.$key}}">
+            <ion-badge slot="start" color="primary" class="top-position color--{{i + 1}}">{{i+1}}</ion-badge>
+            <ion-avatar slot="start">
+                <img [src]="user.profilePicture ? user.profilePicture.url : 'assets/images/default-user.png'" />
+            </ion-avatar>
+            <ion-label>
+                <h2>
+                    {{user.username}}
+                    <ion-badge color="primary" *ngIf="user?.type">{{user?.type}}</ion-badge>
+                </h2>
+                <p>{{user?.followers}} followers</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

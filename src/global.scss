@@ -50,13 +50,11 @@ ion-content,
 ion-modal {
   --background: var(--ion-color-dark);
 }
-
+ion-modal.modal-default:not(.overlay-hidden) ~ ion-modal.modal-default {
+  --backdrop-opacity: 0.6;
+}
 ion-modal {
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.6);
-  ion-toolbar {
-    --padding-top: 3px !important;
-    --padding-bottom: 3px !important;
-  }
   .btn-close {
     --padding-start: 0;
   }
@@ -110,6 +108,19 @@ ion-button {
   --border-radius: 6px;
   font-size: 15px;
   font-weight: 600;
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px;
+  color: var(--ion-color-primary);
 }
 
 ion-avatar {
@@ -120,21 +131,17 @@ ion-avatar {
   }
 }
 ion-header {
+  --border-width: 0;
   ion-toolbar {
-    --background: var(--ion-color-dark);
-    --border-width: 0;
+    --border-width: 0 !important;
     --padding-top: 10px;
     --padding-bottom: 10px;
+    --background: var(--ion-color-dark);
     ion-title {
       font-weight: bold;
       font-size: 16px;
     }
     ion-button {
-      --padding-start: 0 !important;
-      --padding-bottom: 0 !important;
-      --padding-top: 0 !important;
-      --padding-end: 0 !important;
-      margin: 0 !important;
       font-size: 15px !important;
       ion-icon {
         font-size: 23px !important;
@@ -146,7 +153,7 @@ ion-header {
       margin: auto;
     }
     ion-back-button {
-      --margin-start: 10px;
+      margin-left: 16px;
       font-size: 12px;
       ion-icon {
         color: red;
@@ -157,6 +164,15 @@ ion-header {
 
 ion-icon {
   --ionicon-stroke-width: 35px;
+}
+
+.loading-data {
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  top: 0;
 }
 
 ion-searchbar {
@@ -177,7 +193,8 @@ ion-searchbar {
       color: var(--ion-color-medium) !important;
     }
     input {
-      color: var(--ion-color-dark) !important;
+      color: var(--ion-color-light) !important;
+      background: var(--ion-color-dark-tint) !important;
     }
   }
   input {
@@ -199,8 +216,8 @@ p {
 
 ion-toast {
   font-weight: 500;
-  color: black;
-  --border-radius: 6px;
+  color: var(--ion-color-dark);
+  --border-radius: 50px;
   --background: white;
   --padding-end: 32px !important;
   --margin-bottom: 16px;
@@ -210,8 +227,9 @@ ion-toast {
     padding-right: 16px !important;
   }
   &::part(button) {
-    font-size: 1.2em !important;
-    padding-right: 0 !important;
+    font-size: 1.5em !important;
+    padding: 0 !important;
+    padding-left: 13px !important;
   }
 }
 
@@ -263,7 +281,7 @@ ion-footer {
 }
 
 .muted {
-  color: var(--ion-color-medium);
+  color: var(--ion-color-medium) !important;
 }
 
 .form {
@@ -291,6 +309,38 @@ ion-footer {
   }
 }
 
+.success {
+  &::part(button) {
+    color: var(--ion-color-success) !important;
+  }
+}
+
+.error {
+  &::part(button) {
+    color: var(--ion-color-danger) !important;
+  }
+}
+
+.empty-container {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  img {
+    width: 80%;
+    margin-bottom: 40px;
+  }
+  p {
+    text-align: center;
+    color: var(--ion-color-medium);
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
 .button-disabled {
   --color: var(--ion-color-medium);
   color: var(--ion-color-medium);
@@ -304,13 +354,13 @@ ion-footer {
   margin-bottom: 16px;
   h3 {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 17px;
   }
   ion-button {
     margin-left: auto;
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+    font-size: 17px;
+    width: 17px;
+    height: 17px;
   }
 }
 
@@ -368,18 +418,18 @@ ion-footer {
   }
 }
 
-.line-close {
-  height: 5px;
-  width: 50px;
-  background: #fff;
-  border-radius: 50px;
-  position: relative;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+.clips-grid {
+  padding: 0;
+  margin: 0 -5px;
+  img {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}
+
+.light-modal {
 }
 
 .clip {
@@ -474,7 +524,7 @@ ion-footer {
         width: fit-content;
         padding: 3px;
         padding-right: 10px;
-        background: #1212126f;
+        background: rgb(18 18 18 / 45%);
         border-radius: 6px;
         ion-label {
           text-align: left;
@@ -501,13 +551,13 @@ ion-footer {
           }
         }
       }
-      .category {
+      .channel {
         display: flex;
         align-items: center;
         width: fit-content;
         padding: 3px;
         padding-right: 10px;
-        background: #1212126f;
+        background: rgb(18 18 18 / 45%);
         border-radius: 6px;
         ion-label {
           text-align: left;
@@ -575,8 +625,9 @@ ion-footer {
 
 .pause-indicator {
   position: absolute;
-  font-size: 60px;
+  font-size: 50px;
   z-index: 11111;
+  opacity: 0.8;
 }
 
 .wrap {
@@ -607,10 +658,14 @@ ion-footer {
   align-items: flex-end;
   --background: transparent;
   --border-radius: 10px 10px 0 0;
+  ion-toolbar {
+    --padding-top: 3px !important;
+    --padding-bottom: 3px !important;
+  }
 }
 
 .date-picker-modal {
-  --height: 320px;
+  --height: 275px;
 }
 
 .view-options-modal {
@@ -622,31 +677,52 @@ ion-footer {
 }
 
 .menu-clip-modal {
-  --height: 164px;
+  --height: 194px;
 }
 
 .menu-profile-modal {
-  --height: 164px;
+  --height: 195px;
 }
 
 .menu-modal {
   align-items: flex-end;
-  --background: transparent;
-  --border-radius: 10px 10px 0 0;
+  --border-radius: 13px 13px 0 0;
+  ion-header {
+    ion-toolbar {
+      --background: var(--ion-color-dark);
+      --border-width: 0;
+      --padding-top: 0;
+      height: 30px;
+
+      .line-close {
+        height: 5px;
+        width: 40px;
+        background: var(--ion-color-dark-tint);
+        border-radius: 50px;
+        position: relative;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
   ion-content {
-    --background: white;
     border-radius: 6px;
+    --background: var(--ion-color-dark);
   }
 
   ion-item {
     --padding-top: 5px;
     --padding-bottom: 5px;
-    --border-color: var(--ion-color-light-shade);
     ion-label {
       font-weight: 500;
     }
     ion-icon {
-      font-size: 17px !important;
+      font-size: 19px !important;
     }
   }
 }

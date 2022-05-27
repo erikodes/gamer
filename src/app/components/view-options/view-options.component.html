@@ -2,8 +2,8 @@
     <ion-toolbar>
         <ion-title>Who can view this clip</ion-title>
         <ion-buttons slot="end">
-            <ion-button color="dark" (click)="modalController.dismiss()">
-                <ion-icon slot="icon-only" color="dark" name="close-outline"></ion-icon>
+            <ion-button (click)="modalController.dismiss()">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -12,20 +12,20 @@
     <ion-list>
         <ion-radio-group mode="md" allow-empty-selection [(ngModel)]="option">
             <ion-item class="ion-margin-bottom" (click)="selectOption('all')">
-                <ion-label color="dark">Public</ion-label>
+                <ion-label>Public</ion-label>
                 <ion-radio slot="end" value="all"></ion-radio>
             </ion-item>
 
             <ion-item class="ion-margin-bottom" (click)="selectOption('friends')">
                 <ion-text>
-                    <ion-label color="dark">Friends</ion-label>
+                    <ion-label>Friends</ion-label>
                     <p class="muted">followers that you follow</p>
                 </ion-text>
                 <ion-radio slot="end" value="friends"></ion-radio>
             </ion-item>
 
             <ion-item class="ion-margin-bottom" (click)="selectOption('me')">
-                <ion-label color="dark">Private</ion-label>
+                <ion-label>Private</ion-label>
                 <ion-radio slot="end" value="me"></ion-radio>
             </ion-item>
         </ion-radio-group>

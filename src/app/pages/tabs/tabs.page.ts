@@ -16,7 +16,8 @@ export class TabsPage {
     async addClip() {
         const modal = await this.modalController.create({
             component: AddClipComponent,
-            swipeToClose: true
+            swipeToClose: true,
+            showBackdrop: false
         });
         return await modal.present();
     }

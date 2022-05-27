@@ -101,7 +101,6 @@ export class AuthService {
         return this.angularAuth.auth.signOut().then(() => {
             localStorage.removeItem('user');
             this.user = null;
-            this.router.navigateByUrl('auth');
         });
     }
 

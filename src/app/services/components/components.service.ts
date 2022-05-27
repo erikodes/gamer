@@ -34,7 +34,7 @@ export class ComponentsService {
                 message,
                 cssClass: type,
                 position: 'bottom',
-                duration: 2000,
+                duration: 1000,
                 buttons: [
                     {
                         side: 'start',

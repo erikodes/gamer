@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Component, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
 import { MenuClipComponent } from 'src/app/components/menu-clip/menu-clip.component';
 import { games } from '../../../../assets/json/games';
-import { categories } from '../../../../assets/json/categories';
+import { channels } from '../../../../assets/json/channels';
 import { ComponentsService } from 'src/app/services/components/components.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -21,11 +22,10 @@ export class Tab1Page {
         direction: 'vertical'
     };
     videoElement: any;
-    slide: any = 0;
     video: HTMLElement;
     isPlaying: any = true;
     games: any;
-    categories: any;
+    channels: any = channels;
     lottieConfig = {
         loop: false,
         autoplay: false,
@@ -43,7 +43,6 @@ export class Tab1Page {
         public auth: AuthService
     ) {
         this.games = games;
-        this.categories = categories;
 
         api.getRef('clips').ref
             .get()
@@ -52,11 +51,11 @@ export class Tab1Page {
                     const clip = element.data();
                     clip.$key = element.id;
                     clip.creationDate = moment(clip.creationDate.toDate()).fromNow();
-                    const gameId = this.games.findIndex(element => element.id === clip.game);
+                    const gameId = this.games.findIndex(game => game.id === clip.game);
                     clip.game = this.games[gameId];
 
-                    const categoryId = this.categories.findIndex(element => element.id === clip.category);
-                    clip.category = this.categories[categoryId];
+                    const channelId = this.channels.findIndex(channel => channel.id === clip.channel);
+                    clip.channel = this.channels[channelId];
 
                     api.getDocument('users', clip.userKey).then(data => {
                         clip.user = data;
@@ -64,7 +63,7 @@ export class Tab1Page {
                         api.getFollowStatus(clip.userKey)
                             .then(followStatus => {
                                 clip.user.isFollowed = followStatus;
-                            })
+                            });
                     });
 
                     api.getLikeByUser(clip.$key)
@@ -72,40 +71,36 @@ export class Tab1Page {
                             clip.isLiked = likeStatus;
                         });
 
+                    clip.id = api.makeid(10);
+
                     this.clips.push(clip);
                 });
 
                 setTimeout(() => {
-                    (<HTMLVideoElement>document.getElementById('video-0')).play();
+                    (<HTMLVideoElement>document.getElementsByClassName('clip-' + this.clips[0].id)[0]).play();
                 }, 1000);
             });
-    }
-
-    ionViewWillLeave() {
-        console.log('a');
-
     }
 
     slideChange(slides) {
         slides.getPreviousIndex().then(index => {
             this.isPlaying = false;
-            (<HTMLVideoElement>document.getElementById('video-' + index)).pause();
+            (<HTMLVideoElement>document.getElementsByClassName('clip-' + this.clips[index].id)[0]).pause();
         });
 
         slides.getActiveIndex().then(index => {
-            this.slide = index;
             this.isPlaying = true;
-            (<HTMLVideoElement>document.getElementById('video-' + this.slide)).play();
+            (<HTMLVideoElement>document.getElementsByClassName('clip-' + this.clips[index].id)[0]).play();
         });
     }
 
-    changeStatusVideo(index) {
+    changeStatusVideo(id) {
         if (this.isPlaying === true) {
             this.isPlaying = false;
-            (<HTMLVideoElement>document.getElementById('video-' + index)).pause();
+            (<HTMLVideoElement>document.getElementsByClassName('clip-' + id)[0]).pause();
         } else {
             this.isPlaying = true;
-            (<HTMLVideoElement>document.getElementById('video-' + index)).play();
+            (<HTMLVideoElement>document.getElementsByClassName('clip-' + id)[0]).play();
         }
     }
 
@@ -139,6 +134,11 @@ export class Tab1Page {
         }
         this.api.updateFollowStatus(user);
         user.isFollowed = !user.isFollowed;
+    }
+
+    pauseVideo(id) {
+        this.isPlaying = true;
+        this.changeStatusVideo(id);
     }
 
     async openComments(clip) {

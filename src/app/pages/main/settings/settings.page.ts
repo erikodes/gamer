@@ -22,18 +22,18 @@ export class SettingsPage implements OnInit {
     logOut() {
         console.log('a');
 
-        this.components.showAlert('Seguro que quieres cerrar la sesion?', '', [
+        this.components.showAlert('Log Out', 'Are you sure you want to logout?', [
             {
-                text: 'Cancelar',
+                text: 'Cancel',
                 role: 'cancel',
                 cssClass: 'btn-cancel'
             },
             {
-                text: 'Cerrar sesion',
+                text: 'Log Out',
                 role: 'destructive',
                 handler: () => {
                     this.auth.logOut().then(() => {
-                        this.router.navigateByUrl('/auth');
+                        window.location.assign('/auth');
                     })
                 }
             }

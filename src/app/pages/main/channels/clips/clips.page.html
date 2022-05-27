@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-buttons slot="start">
+                <ion-back-button></ion-back-button>
+            </ion-buttons>
+        </ion-buttons>
+        <ion-title>Channel</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+    <ion-item class="category">
+        <ion-thumbnail slot="start">
+            <img [src]="channel?.art" />
+        </ion-thumbnail>
+        <ion-label>
+            <h1>{{channel?.shortName}}</h1>
+            <h3>{{channel?.name}}</h3>
+            <p>{{channelCount}} clips</p>
+        </ion-label>
+    </ion-item>
+    <div class="d-flex">
+        <ion-button class="w--100 ion-no-margin ion-margin-bottom" color="light">
+            <ion-icon name="shuffle" slot="start" color="dark"></ion-icon>
+            Shuffle
+        </ion-button>
+        <ion-button class="w--100 ion-no-margin ion-margin-bottom" color="light" fill="outline">
+            <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+            Save
+        </ion-button>
+    </div>
+    <ion-grid class="clips-grid">
+        <ion-row>
+            <ion-col size="4" *ngFor="let clip of clips; let i = index" routerLink="/clip/{{clip.$key}}"
+                [skipLocationChange]="true" [queryParams]="{ type: 'channel' }">
+                <img [src]="clip.video.url" id="video-{{i}}" />
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-spinner name="crescent" *ngIf="loading" class="loading-data"></ion-spinner>
+    <div *ngIf="clips.length === 0 && !loading" class="empty-container">
+        <img src="assets/images/empty-data.svg" alt="">
+        <p>Wumpus, you don’t have to though!</p>
+    </div>
+</ion-content>

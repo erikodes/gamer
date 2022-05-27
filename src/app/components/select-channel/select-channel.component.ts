@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { categories } from "../../../assets/json/categories";
-
+import { channels } from '../../../assets/json/channels';
 
 @Component({
-    selector: 'app-select-category',
-    templateUrl: './select-category.component.html',
-    styleUrls: ['./select-category.component.scss'],
+    selector: 'app-select-channel',
+    templateUrl: './select-channel.component.html',
+    styleUrls: ['./select-channel.component.scss'],
 })
-export class SelectCategoryComponent implements OnInit {
-
-    categories: any;
+export class SelectChannelComponent implements OnInit {
+    channels: any = channels;
 
     constructor(
         public modalController: ModalController
     ) {
-        this.categories = categories;
     }
 
     ngOnInit() { }
@@ -25,21 +22,20 @@ export class SelectCategoryComponent implements OnInit {
     }
 
     searching(ev) {
-        this.categories = [];
+        this.channels = [];
         const query = ev.detail.value.toLowerCase();
 
-        categories.forEach((item) => {
+        channels.forEach((item) => {
             const shouldShow = item.name.toLowerCase().indexOf(query) > -1;
 
             if (shouldShow) {
-                this.categories.push(item);
+                this.channels.push(item);
             }
         });
 
         if (query === '') {
-            this.categories = categories;
+            this.channels = channels;
         }
 
     }
-
 }

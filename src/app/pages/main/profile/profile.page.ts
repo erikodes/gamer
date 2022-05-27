@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { MenuProfileComponent } from 'src/app/components/menu-profile/menu-profile.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { games } from "../../../../assets/json/games";
-
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
@@ -14,8 +11,8 @@ import { games } from "../../../../assets/json/games";
 export class ProfilePage implements OnInit {
     userKey: any;
     user: any;
+    bestClips: any = [];
     clips: any = [];
-    games: any = [];
     slideOptions = {
         slidesPerView: 'auto'
     };
@@ -27,8 +24,6 @@ export class ProfilePage implements OnInit {
         public modalController: ModalController
     ) {
         this.userKey = this.actvRoute.snapshot.paramMap.get('userKey');
-
-        this.games = games;
 
         api.getDocument('users', this.userKey).then(data => {
             this.user = data;
@@ -44,7 +39,7 @@ export class ProfilePage implements OnInit {
         this.api.getRef('clips').ref
             .where('userKey', '==', this.userKey)
             .orderBy('likes', 'desc')
-            .limit(10)
+            .limit(5)
             .get()
             .then(snapshots => {
                 snapshots.forEach(element => {
@@ -53,21 +48,27 @@ export class ProfilePage implements OnInit {
 
                     let url = clip.video.url.split('/');
 
-                    clip.video.url = 'https://res.cloudinary.com/dzvclpwar/video/upload/e_reverse,ac_none,c_fill,du_2,h_275,q_60,so_0,w_200/' + url[6] + '/' + url[7];
+                    clip.video.url = 'https://res.cloudinary.com/dzvclpwar/video/upload/e_reverse,ac_none,c_fill,du_1.5,h_275,q_60,so_0,w_200/' + url[6] + '/' + url[7];
 
+                    this.bestClips.push(clip);
+                });
+            });
+
+        this.api.getRef('clips').ref
+            .where('userKey', '==', this.userKey)
+            .orderBy('creationDate', 'desc')
+            .get()
+            .then(snapshots => {
+                snapshots.forEach(element => {
+                    const clip = element.data();
+                    clip.$key = element.id;
+
+                    let url = clip.video.url.split('/');
+
+                    clip.video.url = 'https://res.cloudinary.com/dzvclpwar/video/upload/f_jpg/' + url[6] + '/' + url[7];
                     this.clips.push(clip);
                 });
             });
-    }
-
-    async openMenu() {
-        const modal = await this.modalController.create({
-            component: MenuProfileComponent,
-            cssClass: 'menu-modal menu-profile-modal',
-            swipeToClose: true
-        });
-
-        return await modal.present();
     }
 
     followUser() {

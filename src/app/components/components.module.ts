@@ -9,20 +9,18 @@ import { ViewOptionsComponent } from './view-options/view-options.component';
 import { SelectGameComponent } from './select-game/select-game.component';
 import { MenuClipComponent } from './menu-clip/menu-clip.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { MenuProfileComponent } from './menu-profile/menu-profile.component';
-import { SelectCategoryComponent } from './select-category/select-category.component';
 import { SetSocialComponent } from './set-social/set-social.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { SelectChannelComponent } from './select-channel/select-channel.component';
 @NgModule({
     declarations: [
         AddClipComponent,
         ViewOptionsComponent,
         SelectGameComponent,
         MenuClipComponent,
-        MenuProfileComponent,
-        SelectCategoryComponent,
         SetSocialComponent,
-        DatePickerComponent
+        DatePickerComponent,
+        SelectChannelComponent
     ],
     imports: [
         CommonModule,
@@ -39,10 +37,9 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
         ViewOptionsComponent,
         SelectGameComponent,
         MenuClipComponent,
-        MenuProfileComponent,
-        SelectCategoryComponent,
         SetSocialComponent,
-        DatePickerComponent
+        DatePickerComponent,
+        SelectChannelComponent
     ]
 })
 export class ComponentsModule { }

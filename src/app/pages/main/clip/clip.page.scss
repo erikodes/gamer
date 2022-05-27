@@ -1,5 +1,4 @@
 ion-slides {
-  border-radius: 0 0 16px 16px;
   ion-slide {
     position: relative;
     height: fit-content;
@@ -9,7 +8,25 @@ ion-slides {
 
 ion-header {
   position: fixed;
+  width: 100%;
   ion-toolbar {
     --background: transparent;
+    ion-back-button {
+      font-size: 15px !important;
+    }
+  }
+}
+
+.btn-search {
+  z-index: 111;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  ion-icon {
+    font-size: 25px !important;
   }
 }

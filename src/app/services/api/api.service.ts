@@ -135,10 +135,10 @@ export class ApiService {
     }
 
     makeid(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
             result += characters.charAt(Math.floor(Math.random() *
                 charactersLength));
         }
@@ -156,52 +156,52 @@ export class ApiService {
     uploadToCloudinary(type, file) {
         return new Promise((resolve, reject) => {
 
-            const timestamp = Math.round((new Date).getTime() / 1000);
+            const timestamp = Math.round((new Date()).getTime() / 1000);
 
-            let public_id = this.makeid(20);
+            const public_id = this.makeid(20);
             let url;
 
             if (type == 'video') {
-                url = environment.cloudinary.upload.url_video
+                url = environment.cloudinary.upload.url_video;
             } else {
                 url = environment.cloudinary.upload.url_image;
             }
 
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append("api_key", environment.cloudinary.api_key);
-            formData.append("public_id", public_id);
-            formData.append("return_delete_token", "1");
-            formData.append("timestamp", String(timestamp));
-            var signature = CryptoJS.SHA1(`public_id=${public_id}&return_delete_token=1&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
-            formData.append("signature", String(signature));
+            formData.append('file', file);
+            formData.append('api_key', environment.cloudinary.api_key);
+            formData.append('public_id', public_id);
+            formData.append('return_delete_token', '1');
+            formData.append('timestamp', String(timestamp));
+            const signature = CryptoJS.SHA1(`public_id=${public_id}&return_delete_token=1&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
+            formData.append('signature', String(signature));
             this.http.post(url, formData)
                 .subscribe(response => {
                     resolve(response);
                 }, error => {
                     reject(error);
                 });
-        })
+        });
     }
 
     deleteToCloudinary(type, image) {
         return new Promise((resolve, reject) => {
-            const timestamp = Math.round((new Date).getTime() / 1000);
+            const timestamp = Math.round((new Date()).getTime() / 1000);
 
             let url;
 
             if (type == 'video') {
-                url = environment.cloudinary.upload.url_video
+                url = environment.cloudinary.upload.url_video;
             } else {
                 url = environment.cloudinary.upload.url_image;
             }
 
             const formData = new FormData();
-            formData.append("api_key", environment.cloudinary.api_key);
-            formData.append("public_id", image.public_id);
-            formData.append("timestamp", String(timestamp));
-            var signature = CryptoJS.SHA1(`public_id=${image.public_id}&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
-            formData.append("signature", String(signature));
+            formData.append('api_key', environment.cloudinary.api_key);
+            formData.append('public_id', image.public_id);
+            formData.append('timestamp', String(timestamp));
+            const signature = CryptoJS.SHA1(`public_id=${image.public_id}&timestamp=${String(timestamp)}${environment.cloudinary.api_secret}`);
+            formData.append('signature', String(signature));
             this.http.post(url, formData)
                 .subscribe(response => {
                     resolve(response);
@@ -209,7 +209,7 @@ export class ApiService {
                     reject(error);
                 });
 
-        })
+        });
     }
 
     getLikeByUser(clipKey) {
@@ -235,20 +235,20 @@ export class ApiService {
                     .doc(clip.$key)
                     .collection('likes')
                     .doc(this.auth.user)
-                    .delete()
+                    .delete();
             } else {
                 this.db.collection('clips')
                     .doc(clip.$key)
                     .collection('likes')
                     .doc(this.auth.user)
-                    .set({})
+                    .set({});
             }
 
             this.db.collection('clips')
                 .doc(clip.$key)
                 .update({
                     likes: clip.likes
-                })
+                });
         });
     }
 
@@ -275,20 +275,20 @@ export class ApiService {
                     .doc(user.$key)
                     .collection('followers')
                     .doc(this.auth.user)
-                    .delete()
+                    .delete();
             } else {
                 this.db.collection('users')
                     .doc(user.$key)
                     .collection('followers')
                     .doc(this.auth.user)
-                    .set({})
+                    .set({});
             }
 
             this.db.collection('users')
                 .doc(user.$key)
                 .update({
                     followers: user.followers
-                })
+                });
         });
     }
 }

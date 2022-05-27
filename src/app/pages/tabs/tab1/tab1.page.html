@@ -1,16 +1,18 @@
 <ion-content>
     <img src="assets/images/logo.svg" class="logo" alt="">
-    <ion-button expand="block" fill="clear" class="btn-search ion-no-margin">
+    <ion-button expand="block" fill="clear" class="btn-search ion-no-margin" routerLink="/search">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
     </ion-button>
     <ion-slides (ionSlideWillChange)="slideChange(slides)" [options]="slideOptions" #slides>
         <ion-slide *ngFor="let clip of clips; let i = index">
-            <div class="clip" (dblclick)="like(i, clip)">
-                <video [src]="clip.video.url" height="100%" width="100%" muted loop id="video-{{i}}" [autoplay]="false"
-                    (click)="changeStatusVideo(i)"></video>
+            <div class="clip" (dblclick)="like(i, clip)" (click)="changeStatusVideo(clip.id)">
+                <video [src]="clip.video.url" height="100%" width="100%" muted loop [autoplay]="false"
+                    class="clip-{{clip.id}}"></video>
                 <div class="bottom-content">
                     <div class="container">
-                        <div class="user" routerLink="/profile/{{clip.userKey}}">
+                        <div class="user"
+                            [routerLink]="auth.user !== clip.userKey ? '/profile/' + clip.userKey: '/tab4'"
+                            (click)="pauseVideo(clip.id)">
                             <ion-avatar slot="start">
                                 <img
                                     src="{{clip.user?.profilePicture ? clip.user?.profilePicture.url : 'assets/images/default-user.png'}}" />
@@ -33,7 +35,7 @@
                         </div>
                         <p class="clip-title wrap--1">{{clip.title}}</p>
                         <div class="d-flex ion-margin-top">
-                            <div class="game">
+                            <div class="game" routerLink="/games/{{clip.game.id}}">
                                 <ion-thumbnail>
                                     <img src="{{clip.game.art}}" />
                                 </ion-thumbnail>
@@ -42,23 +44,21 @@
                                     <p>Presiona para más</p>
                                 </ion-label>
                             </div>
-                            <div class="category">
+                            <div class="channel" routerLink="/channels/{{clip.channel.id}}"
+                                (click)="pauseVideo(clip.id)">
                                 <ion-thumbnail>
-                                    <img [src]="clip.category.art" />
+                                    <img [src]="clip.channel.art" />
                                 </ion-thumbnail>
                                 <ion-label>
-                                    <h3>{{clip.category.shortName}}</h3>
+                                    <h3>{{clip.channel.shortName}}</h3>
                                 </ion-label>
                             </div>
                         </div>
                     </div>
 
                     <div class="buttons">
-                        <div class="button" (click)="openMenu()">
-                            <ion-icon name="ellipsis-horizontal"></ion-icon>
-                        </div>
                         <div class="button" (click)="like(i, clip)">
-                            <ng-lottie class="confeti" [options]="lottieConfig" *ngIf="clip.isLiked != undefined"
+                            <ng-lottie class="confeti" [options]="lottieConfig" *ngIf="clip.isLiked !== undefined"
                                 (animationCreated)="handleAnimation(clip, i, $event)">
                             </ng-lottie>
                             <p>{{clip.likes}}</p>
@@ -71,10 +71,13 @@
                         <div class="button">
                             <ion-icon name="arrow-redo-outline"></ion-icon>
                         </div>
+                        <div class="button" (click)="openMenu()">
+                            <ion-icon name="ellipsis-vertical"></ion-icon>
+                        </div>
                     </div>
                 </div>
             </div>
-            <ion-icon name="pause-outline" class="pause-indicator" *ngIf="!isPlaying"></ion-icon>
+            <ion-icon name="play" class="pause-indicator" *ngIf="!isPlaying"></ion-icon>
         </ion-slide>
     </ion-slides>
 </ion-content>

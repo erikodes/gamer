@@ -11,8 +11,8 @@ ion-slides {
   top: 16px;
   left: 16px;
   z-index: 111;
-  width: 40px;
-  height: 41px;
+  width: 30px;
+  height: 30px;
 }
 
 .btn-search {
@@ -20,13 +20,13 @@ ion-slides {
   top: 16px;
   right: 16px;
   z-index: 111;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   --padding-start: 0;
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
   ion-icon {
-    font-size: 20px;
+    font-size: 25px;
   }
 }

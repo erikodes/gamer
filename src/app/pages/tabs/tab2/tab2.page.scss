@@ -1,24 +1,57 @@
+ion-header {
+  ion-toolbar {
+    padding: 8px 5px !important;
+  }
+}
+
 .news-slider {
   margin: 16px -16px;
+  margin-top: 0;
   ion-slide {
     width: 300px;
     height: 200px;
 
     img {
       width: 300px;
-      height: 150px;
+      height: 130px;
       object-fit: cover;
       transition: all 0.2s ease-out;
       border-radius: 6px;
     }
     .active-img {
-      height: 200px;
+      height: 180px;
+    }
+  }
+}
+
+.categories {
+  padding-bottom: 32px;
+  .games-slider {
+    margin: 0 -16px;
+    padding: 0 16px;
+    ion-slide {
+      width: 100px;
+      text-align: left;
+      .category {
+        img {
+          width: 100px;
+          height: 100px;
+          border-radius: 16px;
+          object-fit: cover;
+        }
+        p {
+          font-size: 14px;
+          margin-top: 6px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
     }
   }
 }
 
 .top-users {
-  padding-top: 16px;
+  padding-bottom: 32px;
 
   .users-slider {
     margin: 0 -16px;
@@ -36,21 +69,23 @@
           background: var(--ion-color-dark-shade);
           ion-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            top: 0;
+            right: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 23px;
-            height: 23px;
+            width: 25px;
+            height: 25px;
             border-radius: 50px;
             background: white;
             color: var(--ion-color-dark);
+            border: 3px solid var(--ion-color-dark);
             font-size: 10px;
+            font-weight: bold;
           }
         }
         h6 {
-          font-weight: bold;
+          font-weight: 500;
           margin-top: 10px;
           font-size: 14px;
           text-align: center;
@@ -61,18 +96,17 @@
 }
 
 .games {
-  padding-top: 32px;
   .games-slider {
     margin: 0 -16px;
     padding: 0 16px;
     ion-slide {
       width: 125px;
       text-align: left;
-      .category {
+      .game {
         img {
           width: 125px;
           height: 175px;
-          border-radius: 5px;
+          border-radius: 6px;
           object-fit: cover;
         }
         p {
@@ -83,43 +117,6 @@
     }
   }
 }
-
-.categories {
-  padding-top: 32px;
-  ion-grid {
-    margin: -4px;
-  }
-  .category {
-    display: flex;
-    align-items: center;
-    margin: 0 4px;
-    margin-bottom: 8px;
-    padding: 4px;
-    padding-right: 30px;
-    background: var(--ion-color-dark-tint);
-    border-radius: 6px;
-    ion-label {
-      text-align: left;
-      margin-left: 10px;
-      padding: 0;
-      h3 {
-        font-weight: bold;
-        font-size: 15px;
-      }
-    }
-    ion-thumbnail {
-      width: 50px;
-      height: 50px;
-      border-radius: 6px;
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 6px;
-      }
-    }
-  }
-}
-
 .color {
   &--1 {
     background: #f7d656 !important;

@@ -1,25 +1,41 @@
-<ion-content class="ion-padding">
-    <div class="d-flex ion-padding-bottom">
-        <ion-searchbar color="light" placeholder="Buscar usuarios, colecciones..."></ion-searchbar>
-    </div>
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-searchbar color="light" placeholder="Buscar usuarios, colecciones..." routerLink="/search">
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-horizontal ion-padding-bottom">
     <ion-slides class="news-slider" (ionSlideWillChange)="slideChange(slides)" [options]="slideOpts" #slides>
         <ion-slide *ngFor="let item of [].constructor(10); let i = index">
-            <img src="https://m.media-amazon.com/images/S/sonata-images-prod/SVOD_ROW_BoschLegacy/d05a03d7-609d-465a-8b30-715e9df55f26._UR3000,600_SX3000_FMwebp_.jpeg"
-                alt="" [ngClass]="{'active-img': slide == i}">
+            <img src="assets/images/banner.webp" alt="" [ngClass]="{'active-img': slide === i}">
         </ion-slide>
     </ion-slides>
+    <div class="categories">
+        <div class="title">
+            <h3>Channels</h3>
+        </div>
+        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 16}">
+            <ion-slide *ngFor="let channel of channels; let i = index">
+                <div class="category" routerLink="/channels/{{channel.id}}">
+                    <img src="{{channel.art}}" alt="">
+                    <p class="wrap wrap--1">{{channel.shortName}}</p>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
     <div class="top-users">
         <div class="title d-flex">
-            <h3>Mejores gamers</h3>
-            <ion-button fill="clear" color="dark" class="ion-no-padding">
+            <h3>Best gamers 🔥</h3>
+            <ion-button fill="clear" color="dark" class="ion-no-padding" routerLink="/top-users">
                 <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
             </ion-button>
         </div>
         <ion-slides class="users-slider" [options]="{slidesPerView: 'auto', spaceBetween: 28}">
             <ion-slide *ngFor="let user of users; let i = index">
-                <div class="user" routerLink="/profile/{{user.$key}}">
+                <div class="user" [routerLink]="auth.user !== user.$key ? '/profile/' + user.$key: '/tab4'">
                     <ion-avatar>
-                        <img src="{{user.profilePicture ? user.profilePicture : 'assets/images/default-user.png'}}" />
+                        <img
+                            src="{{user.profilePicture ? user.profilePicture.url : 'assets/images/default-user.png'}}" />
                         <ion-badge class="color--{{i + 1}}">{{i + 1}}</ion-badge>
                     </ion-avatar>
                     <h6 class="wrap wrap--1">{{user.username}}</h6>
@@ -29,37 +45,18 @@
     </div>
     <div class="games">
         <div class="title d-flex">
-            <h3>Juegos recomendados</h3>
+            <h3>Juegos recomendados 🕹</h3>
             <ion-button fill="clear" color="dark" class="ion-no-padding">
                 <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
             </ion-button>
         </div>
-        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 15}">
+        <ion-slides class="games-slider" [options]="{slidesPerView: 'auto', spaceBetween: 16}">
             <ion-slide *ngFor="let game of games; let i = index">
-                <div class="category">
+                <div class="game" routerLink="/games/{{game.id}}">
                     <img src="{{game.art}}" alt="">
                     <p class="wrap wrap--1">{{game.name}}</p>
                 </div>
             </ion-slide>
         </ion-slides>
-    </div>
-    <div class="categories">
-        <div class="title">
-            <h3>Categorías</h3>
-        </div>
-        <ion-grid class="ion-no-padding">
-            <ion-row>
-                <ion-col size="6" *ngFor="let category of categories; let i = index">
-                    <div class="category">
-                        <ion-thumbnail>
-                            <img [src]="category.art" />
-                        </ion-thumbnail>
-                        <ion-label>
-                            <h3>{{category.shortName}}</h3>
-                        </ion-label>
-                    </div>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
     </div>
 </ion-content>

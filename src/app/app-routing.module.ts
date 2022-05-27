@@ -26,9 +26,29 @@ const routes: Routes = [
         path: 'clip/:clipKey',
         loadChildren: () => import('./pages/main/clip/clip.module').then(m => m.ClipPageModule)
     },
+    {
+        path: 'settings',
+        loadChildren: () => import('./pages/main/settings/settings.module').then(m => m.SettingsPageModule)
+    },
+    {
+        path: 'top-users',
+        loadChildren: () => import('./pages/main/top-users/top-users.module').then(m => m.TopUsersPageModule)
+    },
+    {
+        path: 'channels',
+        loadChildren: () => import('./pages/main/channels/channels.module').then(m => m.ChannelsPageModule)
+    },
+    {
+        path: 'followers/:userKey',
+        loadChildren: () => import('./pages/main/followers/followers.module').then(m => m.FollowersPageModule)
+    },
+    {
+        path: 'games',
+        loadChildren: () => import('./pages/main/games/games.module').then(m => m.GamesPageModule)
+    },
   {
-    path: 'settings',
-    loadChildren: () => import('./pages/main/settings/settings.module').then( m => m.SettingsPageModule)
+    path: 'search',
+    loadChildren: () => import('./pages/main/search/search.module').then( m => m.SearchPageModule)
   }
 ];
 @NgModule({

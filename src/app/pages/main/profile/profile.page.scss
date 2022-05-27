@@ -51,9 +51,10 @@ ion-avatar {
   }
 }
 
-.clips {
+.best-clips {
   padding: 0 16px;
   margin: 0 -16px;
+  padding-bottom: 16px;
   ion-slide {
     width: 200px;
     height: 275px;
@@ -113,30 +114,6 @@ ion-avatar {
       gap: 10px;
       ion-icon {
         color: #fff;
-      }
-    }
-  }
-}
-
-.games {
-  padding-top: 32px;
-  .games-slider {
-    margin: 0 -16px;
-    padding: 0 16px;
-    ion-slide {
-      width: 125px;
-      text-align: left;
-      .category {
-        img {
-          width: 125px;
-          height: 175px;
-          border-radius: 5px;
-          object-fit: cover;
-        }
-        p {
-          font-size: 13px;
-          font-weight: bold;
-        }
       }
     }
   }

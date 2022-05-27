@@ -5,11 +5,17 @@
 }
 
 ion-datetime {
-  --background: transparent;
-  --background-rgb: var(--ion-color-dark-rgb);
-  color: #3a3a3a;
+  color: var(--ion-color-dark);
 }
 
 .months-years {
   margin-left: -30px;
+}
+
+ion-title {
+  color: var(--ion-color-dark);
+}
+
+ion-content {
+  --background: var(--ion-color-light);
 }

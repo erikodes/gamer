@@ -38,7 +38,9 @@ export class AccountPage implements OnInit {
     ngOnInit() {
         this.api.getDocument('users', this.auth.user).then(data => {
             this.user = data;
-            this.birthdate = moment(this.user.birthdate.toDate()).format("DD MMM YYYY");
+            if (this.birthdate) {
+                this.birthdate = moment(this.user.birthdate.toDate()).format("DD MMM YYYY");
+            }
         });
     }
 
@@ -74,9 +76,10 @@ export class AccountPage implements OnInit {
     }
 
     saveChanges() {
+        delete this.user.$key;
         this.api.updateDocument('users', this.auth.user, this.user).then(() => {
-            this.components.showToast('Usuario actualizado correctamente.', 'success');
             this.navCtrl.back();
+            this.components.showToast('Usuario actualizado correctamente.', 'success');
         })
     }
 
